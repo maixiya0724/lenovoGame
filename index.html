@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">-->
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <!--默认使用IE最高级别-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>联想游戏登录</title>
+    <link rel="SHORTCUT ICON" href="http://www.lenovo.com.cn/favicon.ico">
+    <!--&lt;!&ndash;&lt;!&ndash;引入主题样式&ndash;&gt;&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="./static/css/main.css">-->
+    <!-- 开发过程中 由于字体变动比较大 用在线地址 -->
+    <!--<link rel="stylesheet" href="//at.alicdn.com/t/font_360155_c0rx00qsdyh0vn29.css">-->
+    <!-- 最后上线用下面这个资源 -->
+    <!--<link rel="stylesheet" href="./static/fonts/iconfont.css">-->
+</head>
+<script>
+    (function () {
+        function flexAble() {
+            let deviceWidth = document.documentElement.clientWidth;
+            // if (deviceWidth > 1920) {
+            //     deviceWidth = 1920;
+            // }
+            // if (deviceWidth < 1023) {
+            //     deviceWidth = 1023;
+            // }
+            document.documentElement.style.fontSize = Math.round(deviceWidth / 19.2) + 'px';
+        }
+        flexAble();
+        let timer;
+        window.onresize = function () {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                flexAble();
+            }, 0)
+        };
+    })();
+
+</script>
+<body>
+<div id="app"></div>
+
+<!-- built files will be auto injected -->
+<!--<script src="/static/simple-calendar.js"></script>-->
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/jquery.min.js"></script>
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/echo.min.js"></script>
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/js-cookie/js.cookie.js"></script>
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/md5.min.js"></script>
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/Base64.js"></script>
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/sha1.js"></script>
+<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/AES.js"></script>
+<!--<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/gweb.0.01.min.js"></script>-->
+</body>
+</html>

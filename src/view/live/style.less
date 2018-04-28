@@ -1,0 +1,443 @@
+@import "../../common/base.less";
+.pes{ position:relative;}
+.pos{ position:absolute;}
+.clearfix{
+  zoom:1
+}
+.clearfix:after{
+  content:"";
+  height:0;
+  line-height:0;
+  visibility:hidden;
+  display:block;
+  clear:both;
+}
+.btn{
+  display: block;
+  cursor: pointer;
+}
+.none{ display:none;}
+.ic{
+  display: block;
+  position: absolute;
+}
+//.clear{
+//  clear: both;
+//}
+.over{ overflow:hidden;}
+
+#appChoice{
+  .px2rem(width, 1000);
+  .px2rem(padding-bottom, 0);
+  margin: 0 auto;
+  overflow: hidden;
+
+  .ic-zb{
+    background:url("/static/img/live/icon-tv.png") no-repeat center center;
+    .px2rem(width, 20);
+    .px2rem(height, 18);
+    .px2rem(top, 6);
+  }
+  .ic-l{
+    background:url("/static/img/live/icon-l.png") no-repeat center center;
+    .px2rem(width, 20);
+    .px2rem(height, 18);
+    .px2rem(top, 6);
+  }
+  .ic-cton{
+    background:url("/static/img/icon_allgame.png") no-repeat center center;
+    .px2rem(width, 20);
+    .px2rem(height, 18);
+    .px2rem(top, 6);
+  }
+
+
+  .part{
+    width: 100%;
+    color:  #fff;
+    //.multiPx2rem(padding, 0,20, 0, 20);
+    .px2rem(margin-bottom, 8);
+    .top-line{
+      .px2rem(height, 32);
+      .px2rem(line-height, 32);
+      .px2rem(margin-bottom, 5);
+      .px2rem(padding-left, 30);
+      position: relative;
+      i{
+        position: absolute;
+        background-size: 100% 100%;
+        left: 0;
+      }
+      h2{
+        float: left;
+        .px2rem(font-size, 18);
+        font-weight: normal;
+      }
+      p{
+        float: right;
+        .px2rem(font-size, 14);
+        color: #fff;
+        cursor:pointer;
+      }
+    }
+    .tap-banner{
+      border: 1px solid #282828;
+      color: #979ea4;
+      .px2rem(margin-bottom, 20);
+      .px2rem(font-size, 14);
+      div{
+        .px2rem(margin-top, 10);
+        .px2rem(margin-bottom, 10);
+        p{
+          float: left;
+          .px2rem(height, 28);
+          .px2rem(line-height, 28);
+          .px2rem(margin-left, 25);
+          .px2rem(margin-right, 25);
+        }
+        ul{
+          .px2rem(padding-left, 120);
+          li{
+            float: left;
+            .px2rem(width, 75);
+            .px2rem(height, 28);
+            .px2rem(line-height, 28);
+            .px2rem(margin-right, 5);
+            margin: 0;
+            text-align: center;
+          }
+
+          li:hover{
+            color: #b83353;
+            cursor: pointer;
+          }
+          li.active{
+            border: 1px solid #b83353;
+            .px2rem(border-radius, 14);
+            color: #b83353;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    ul{
+      li:hover{
+        .cover{
+          height: 100%;
+          border: 1px solid #a4a7ae;
+        }
+      }
+      li{
+        float: left;
+        .px2rem(width, 235);
+        .px2rem(margin-right, 20);
+        .px2rem(margin-bottom, 20);
+        overflow: hidden;
+        position: relative;
+        .bg-img{
+          width: 100%;
+          .px2rem(height, 132);
+          img{
+            width:100%;
+            height:auto;
+          }
+        }
+        div:nth-child(2){
+          .multiPx2rem(padding, 8,10,8,10);
+          .px2rem(height, 65);
+          background-color: #0a1117;
+          position: relative;
+          .px2rem(padding-top,6);
+          h3 {
+            color: #fff;
+            font-weight:normal;
+            .px2rem(font-size, 16);
+            .px2rem(padding-left,45);
+            overflow: hidden;
+            white-space: nowrap;  text-overflow: ellipsis;
+
+          }
+          p{
+            color: #f4f4f4;
+            .px2rem(font-size, 16);
+            .px2rem(margin-bottom, 5);
+          }
+          span{
+            display: block;
+            .px2rem(font-size, 14);
+            .px2rem(width, 185);
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            color: #979ea4;
+          }
+          i{
+            position: absolute;
+            background-size: 100% 100%;
+            .px2rem(bottom, 13);
+            .px2rem(right, 12);
+          }
+        }
+        div.ft{
+
+          .face{
+            display:block; .px2rem(width,34); .px2rem(height,34); .px2rem(left,10); .px2rem(top,-7); border-radius:50%; background:#fff;
+            img{ width:100%; height:100%; display:block; }
+          }
+          p{
+            color:#c7c7c7; .px2rem(font-size,14);
+            .px2rem(width,150);
+            overflow: hidden;
+            white-space: nowrap;  text-overflow: ellipsis;
+          }
+          .icbox{
+            position:absolute;
+            color: #979ea4;
+            .px2rem(top,35);
+            .px2rem(left,175);
+            .px2rem(max-width,55);
+            .px2rem(height,14);
+            .px2rem(line-height,14);
+            .px2rem(font-size,14);
+            .px2rem(padding-left,14);
+            overflow:visible;
+            //overflow: hidden;
+            white-space: nowrap;  text-overflow: ellipsis;
+            text-align: left;
+            em{
+              .px2rem(width,16);
+              .px2rem(height,14);
+              position: absolute;
+              .px2rem(left,-7);
+              background: url("/static/img/live/icon-smtv.png") no-repeat center;
+              background-size:100%;
+              .px2rem(top,-2);
+            }
+          }
+        }
+
+      }
+      li:nth-child(4n){
+        margin-right: 0;
+      }
+    }
+  }
+  //video-carousel开始
+  .video-carousel{
+    .px2rem(height, 500);
+    .px2rem(margin-bottom,28);
+    position:relative;
+    .goin{
+      .px2rem(width,165);
+      .px2rem(height,60);
+      .px2rem(top,205);
+      left:50%;
+      .px2rem(margin-left,-165);
+      background:url("/static/img/live/zhibo-btn.png");
+      background-size: 100% 100%;
+    }
+    .goin:hover{
+      .px2rem(width,165);
+      .px2rem(height,60);
+      .px2rem(top,205);
+      left:50%;
+      .px2rem(margin-left,-165);
+      background:url("/static/img/live/zhibo-btn-hover.png");
+      background-size: 100% 100%;
+    }
+    .videos{
+      .px2rem(width,845);
+      .px2rem(height, 500);
+      float: left;
+      background: #000;
+      img{ width:100%;}
+      div{
+        .px2rem(width,845);
+        .px2rem(height, 500);
+      }
+    }
+    .btnlist{
+      .px2rem(width, 145);
+      .px2rem(height, 500);
+      position:absolute;
+      top:0;
+      right:0;
+
+      li{
+        .px2rem(height, 80);
+        .px2rem(width, 145);
+        .px2rem(margin-top, 3);
+        //border-radius:3px;
+        margin-bottom:0;
+        background: #fff;
+        cursor: pointer;
+        position:relative;
+        overflow:visible;
+        span{ display:none;}
+        img{
+          width:100%;
+          border-radius:5px;
+          .px2rem(height,80);
+        }
+      }
+      li:hover{
+        span{
+          display:block; .px2rem(width, 152);  .px2rem(height,84); position:absolute;
+          background:url("../../../static/img/live/icon-vlsback.png") no-repeat left center;
+          background-size:99.9% 100%;
+          .px2rem(top, -2);
+          .px2rem(left, -7);
+        }
+      }
+      li.on{
+        span{
+          display:block; .px2rem(width, 152);  .px2rem(height,84); position:absolute;
+          background:url("../../../static/img/live/icon-vlsback.png") no-repeat left center;
+          background-size:99.9% 100%;
+          .px2rem(top, -2);
+          .px2rem(left, -7);
+        }
+      }
+    }
+  }
+  //video-carousel结束
+  //.liveblist
+  .liveblist{
+    overflow: hidden;
+    ul{
+      li{
+        .px2rem(width,234);
+        .px2rem(height,190);
+        border:1px solid #10151a;
+        .ft{
+          .px2rem(padding-top,4);
+        }
+        .bg-img{
+          img{
+            .px2rem(width,234);
+            .px2rem(height,132);
+            display:block;
+          }
+          .mask{
+            opacity: 0;
+            transition: all .3s ease-out;
+            .px2rem(width,234);
+            .px2rem(height,132);
+            position:absolute;
+            left:0;
+            top:0;
+            background:#000;
+
+            .icon-bgtv{
+              opacity: 0;
+              display: block;
+              position: absolute;
+              .px2rem(width,60);
+              .px2rem(height,60);
+              .px2rem(left,87);
+              .px2rem(top,45);
+              background:url("/static/img/live/icon-bgtv.png") no-repeat center;
+              background-size:100% 100%;
+
+              -webkit-transform: scale(1.7);
+              transform: scale(1.7);
+              -webkit-transition:all ease-out 250ms;
+              transition:all ease-out 250ms;
+            }
+
+          }
+        }
+      }
+      li:hover{
+        -webkit-box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+        box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+        border-color:#979ea4;
+        cursor: pointer;
+        .mask{
+          opacity:0.8;
+          .icon-bgtv{
+            opacity: 1;
+
+            -webkit-transform: scale(0.75);
+            transform: scale(0.75);
+
+            -webkit-transition:all ease-out 250ms;
+            transition:all ease-out 250ms;
+
+          }
+        }
+      }
+    }
+  }
+  //.liveblist结束
+  .hotlist{
+    overflow:hidden;
+    ul{
+      li{
+        border:1px solid #11161b;
+        .px2rem(width,150);
+        .px2rem(min-height,234);
+        float:left;
+        .img{
+          .px2rem(height,200);
+          .px2rem(width,150);
+          img{
+            .px2rem(height,200);
+            .px2rem(width,150);
+            display:block;
+          }
+        }
+        div.ft{
+          .px2rem(height,37);
+          left:0;
+          bottom:0;
+          right:0;
+          .multiPx2rem(padding,0,0,0,0);
+          text-align: center;
+          transition:height 0.5s,bottom 0.5s;
+          -webkit-transition: height 0.5s,bottom 0.5s;	/* Safari 和 Chrome */
+          h3{
+            .px2rem(font-size,16);
+            .px2rem(line-height,37);
+            .px2rem(height,37);
+            padding-left:0;
+            text-align: center;
+            text-indent:0rem;
+            overflow: hidden;
+          }
+          p{
+            .px2rem(width,150);
+            overflow: hidden;
+            white-space: nowrap;  text-overflow: ellipsis;
+            .px2rem(font-size,14);
+            .px2rem(line-height,26);
+            color: #979ea4;
+          }
+          
+        }
+      }
+      li:nth-child(4){
+        .px2rem(margin-right, 20);
+      }
+      li:nth-child(6){
+        .px2rem(margin-right, 0);
+      }
+      li:hover{
+        cursor:pointer;
+        border-color:#979ea4;
+        //div.ft{
+        //  .px2rem(height,62);
+        //  .px2rem(bottom,30);
+        //  .px2rem(line-height,62);
+        //  h3{
+        //    .px2rem(line-height,52);
+        //    .px2rem(height,52);
+        //  }
+        //}
+      }
+    }
+
+  }
+  //.hotlist结束
+}

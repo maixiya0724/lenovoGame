@@ -1,0 +1,12 @@
+.px2rem(@name, @px){
+    @{name}: unit(@px / 100, rem);
+}
+/* .px2rem(@name, @px){
+    @{name}: unit(@px / 100*0.5625, rem);
+} */
+.multiPx2rem(@name, @top, @right, @bottom, @left) {
+    @{name}-top: unit(@top / 100, rem);
+    @{name}-right: unit(@right / 100, rem);
+    @{name}-bottom: unit(@bottom / 100, rem);
+    @{name}-left: unit(@left / 100, rem);
+}

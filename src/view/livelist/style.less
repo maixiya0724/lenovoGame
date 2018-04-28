@@ -1,0 +1,166 @@
+
+@import "../../common/base.less";
+.clearfix{
+  zoom:1
+}
+.clearfix:after{
+  content:"";
+  height:0;
+  line-height:0;
+  display:block;
+  visibility:hidden;
+  clear:both
+}
+.live-container{
+  .px2rem(width, 1000);
+  .px2rem(height, 800);
+  margin:0 auto;
+  color:#fff;
+  .live-content-container{
+    //.px2rem(margin-left, 10);
+    //.px2rem(margin-right, 10);
+    .live-title{
+      .px2rem(margin-top, 28);
+      .px2rem(font-size, 16);
+      .px2rem(padding-left,20);
+      color: #fff;
+    }
+    .live-content{
+      .live-specific{
+        position:relative;
+        float:left;
+        border:1px solid #2a2b3a;
+        .px2rem(margin-right,18);
+        .px2rem(width, 236);
+        .px2rem(margin-top, 15);
+        .live-img{
+          .px2rem(width, 234);
+          .px2rem(height, 132);
+          img{
+            .px2rem(width, 235);
+            .px2rem(height, 132);
+            display:block;
+          }
+          .mask{
+            position:absolute;
+            opacity: 0;
+            .px2rem(width, 233)!important;
+            .px2rem(height, 132);
+            //height:0;
+            background:rgba(0,0,0,0.6);
+            top:0;
+            transition: all .3s ease-out;
+            img{
+              .px2rem(margin-top, 40);
+
+              .px2rem(width, 60);
+              .px2rem(height, 60);
+
+              margin-left:auto;
+              margin-right:auto;
+
+              -webkit-transform: scale(1.6);
+              transform: scale(1.6);
+              -webkit-transition:all ease-out 250ms;
+              transition:all ease-out 250ms;
+
+            }
+          }
+        }
+        .live-introduce{
+          .px2rem(height, 58);
+          .px2rem(padding-left, 10);
+          background:#0a1117;
+          .title-one{
+            .px2rem(font-size, 16);
+            color:#fff;
+            .portrait{
+              .px2rem(width, 33);
+              .px2rem(margin-top, -10);
+              position:absolute;
+              z-index:10;
+              img{
+                .px2rem(width, 33);
+                .px2rem(height, 33);
+                border-radius:50%;
+              }
+            }
+            .word-text{
+              .px2rem(padding-top,4);
+              .px2rem(margin-left, 43);
+            }
+          }
+          .title-two{
+            .px2rem(font-size, 14);
+            .px2rem(margin-top, 4);
+            color:#c7c7c7;
+            div:first-child{
+              .px2rem(width, 140);
+              .px2rem(height, 18);
+              overflow:hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              float:left
+            }
+            img{
+              .px2rem(width, 16);
+              .px2rem(height, 14);
+              .px2rem(margin-left, 5);
+              .px2rem(padding-top, 3);
+            }
+            .word-text{
+
+              float:right;
+              .px2rem(margin-right, 10);
+              .px2rem(padding-left,14);
+              position: relative;
+              em{
+                .px2rem(width,16);
+                .px2rem(height,14);
+                position: absolute;
+                .px2rem(left,-7);
+                background: url("/static/img/live/icon-smtv.png") no-repeat center;
+                background-size:100%;
+                .px2rem(top,3);
+              }
+            }
+          }
+        }
+      }
+      .live-specific:nth-child(4n){
+        .px2rem(margin-right, 0);
+      }
+      .live-specific:hover{
+        border:1px solid #fff;
+        box-shadow:10px 10px 10px rgba(0,0,0,0.5);
+        cursor:pointer;
+
+        img{
+          .px2rem(width, 233);
+        }
+        .mask{
+          opacity: 1;
+          .px2rem(width, 233)!important;
+          .px2rem(height, 132);
+          img{
+            .px2rem(width, 60);
+            .px2rem(height, 60);
+
+            -webkit-transform: scale(0.75);
+            transform: scale(0.75);
+
+            -webkit-transition:all ease-out 250ms;
+            transition:all ease-out 250ms;
+          }
+        }
+      }
+    }
+  }
+  .loadMore{
+    .px2rem(font-size, 20);
+    .px2rem(margin-top, 20);
+    text-align:center;
+    color:#979ea4
+  }
+
+}

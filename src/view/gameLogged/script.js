@@ -16,9 +16,22 @@ export default{
 	
 	data(){
 			return{  
-				sliderList:[{url:"https://app.caizhanbao.cn/00030873-5852-47c8-ac75-ed094865354d.png",index:1},{url:"https://app.caizhanbao.cn/0006e261-6b8f-42b2-8c42-bfd8c9f6d81a.png",index:2},{url:"https://app.caizhanbao.cn/0026a103-f0a9-49dd-9bd5-dbc37a84f320.png",index:3},{url:"https://app.caizhanbao.cn/0026a103-f0a9-49dd-9bd5-dbc37a84f320.png",index:4}],
+				// 轮播图的图片
+				sliderList:[{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg",index:1},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg",index:2},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg",index:3},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg",index:4}],
+				// 推荐游戏的图片
+				reImgList:[{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg",index:1,name:"王者荣耀"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg",index:2,name:"绝地求生"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg",index:3,name:"英雄联盟"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg",index:4,name:"贪玩蓝月"}],
+				hotGame:[{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg",index:1,name:"王者荣耀"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg",index:2,name:"绝地求生"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg",index:3,name:"英雄联盟"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg",index:4,name:"贪玩蓝月"}],
+				dataSerList:[{name:"英雄联盟",data:"100",time:"07.24"},{name:"英雄联盟",data:"100",time:"07.24"},{name:"英雄联盟",data:"100",time:"07.24"}],
 
 			} 
 	},
+	methods:{
+			sliderInit:function(){
+				$('.carousel').carousel({
+				  interval: 2000,
+				  
+				})
+			}
+		}
 	
 }

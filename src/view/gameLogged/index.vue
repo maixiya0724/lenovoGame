@@ -19,16 +19,19 @@
 							<div class="logout">退出</div>
 						</div>
 					</div>
-					<div class="myGameList">
-						<div class="title">我的游戏</div>
-						<div class="dataList">
-							<div class="dataItem">
-								<div class="itemName">游戏名称七个字</div>
-								<div class="itemNum">909服</div>
-								<div class="itemStart">进入游戏</div>
-							</div>
+					
+						<div class="myGameList">
 
-						</div>
+							<div class="title">我的游戏</div>
+							<div class="dataList">
+								<div class="dataItem">
+									<div class="itemName">游戏名称七个字</div>
+									<div class="itemNum">909服</div>
+									<div class="itemStart">进入游戏</div>
+								</div>
+
+							</div>
+					
 					</div>
 				</div>
 				<div class="centerTopR">
@@ -41,22 +44,24 @@
 				<SearchTitle text="推荐游戏" imgUrl="../../../static/img/reImg.png"></SearchTitle>
 
 				<div class="gameList">
-				<div class="gameItem noleft">
-					<div class="itemImg">
-						<img src="../../../static/img/reImg.png" alt=""/>
-						<div class="itemStart">
-							<span class="gameIn"></span>
-							<span>进入游戏</span>
-							<span class="gameC"></span>
-							<span>选服</span>
+					<div class="gameListMain">
+					<div v-for="(item,index) in reImgList" class="gameItem">
+						<div class="itemImg">
+							<img :src="item.url" alt=""/>
+							<div class="itemStart">
+								<span class="gameIn"></span>
+								<span>进入游戏</span>
+								<span class="gameC"></span>
+								<span>选服</span>
+							</div>
 						</div>
+						<div class="itemName">{{item.name}}</div>
 					</div>
-					<div class="itemName">绝地求生</div>
+
+				</div>
 				</div>
 			</div>
-				
-			</div>
-			
+
 			<div class="dataListGame">
 					<div class="dataListL">
 						<div class="list">
@@ -69,19 +74,44 @@
 								</div>
 								
 								<div class="swiperList">
-									<h1>轮播图</h1>
+									<!-- 轮播图 -->
+									<div  class="slider">
+										<!-- 注意这里ID是要保持唯一性 -->
+
+								  			 <div id="myCarousel2" class="carousel slide">
+	      										  <ol class="carousel-indicators">
+	      										    <li data-target="#myCarousel2" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
+	      										    
+	      										  </ol>
+	      										 
+	      										  <div class="carousel-inner">
+	      										    <div  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
+	      										    	<ul class="allData">
+				      										<li v-for="(items,index) in dataSerList">
+				      											<div class="one">{{items.name}}</div>
+																<div class="two">{{items.data}}</div>
+																<div class="three">{{items.time}}</div>
+				      										</li>
+				      									</ul>
+	      										    </div>		    
+	      										    
+	      										  </div>
+	      									</div>
+								    </div> 
+									
 								</div> 
 
 								
 							</div>
 						</div>
 					</div>
+
 					<div class="dataListR">
 							<SearchTitle text="热门游戏" imgUrl="../../../static/img/hot.png"></SearchTitle>
 							<div class="imgList">
 								<div class="imgOver">
-									<div class="imgListItem">
-										<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="游戏图片"/>
+									<div class="imgListItem" v-for="(item,index) in hotGame">
+										<img :src="item.url" alt="游戏图片"/>
 									</div>
 								</div>
 							</div>
@@ -122,24 +152,26 @@
 @import "../../common/base.less"; 
 
 
+
+
     .centerTopR {
         .px2rem(width, 900);
         .px2rem(height, 400);
         background: red;
         .slider {
             .px2rem(width, 900);
-            .px2rem(height, 400);
+        .px2rem(height, 400);
             background: red;
             .carousel {
                 .px2rem(width, 900);
-                .px2rem(height, 400);
+        		.px2rem(height, 400);
                 .carousel-inner {
                     .item {
                         .px2rem(width, 900);
-                        .px2rem(height, 400);
+        				.px2rem(height, 400);
                         img {
-                            .px2rem(width, 900);
-                            .px2rem(height, 400);
+                           .px2rem(width, 900);
+        				   .px2rem(height, 400);
                         }
                     }
                 } // 轮播图图标的样式
@@ -165,6 +197,8 @@
             }
         }
     }
+
+
 
 </style>
 

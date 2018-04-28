@@ -1,3 +1,9 @@
+<!-- 
+	游戏头部搜索页面 含有搜索框   
+	效果链接为  
+	https://app.caizhanbao.cn/1524906737%281%294%E7%8E%A92.png
+ -->
+
 <template>
 	<div class="searchGameTop">
 		<div class="topLeft">联想游戏中心/找游戏</div>
@@ -21,7 +27,7 @@
 		float: left;
 		.px2rem(line-height,117);
 		.px2rem(font-size,24);
-		color: #999999;
+		color: #fff;
 	}
 	.topRight{
 		float: right;
@@ -30,8 +36,9 @@
 		.px2rem(width,290);
 		.px2rem(height,30);
 		.px2rem(margin-top,50);
-		background: #eef1f6;
+		 background: rgba(0,0,0,0.2);
 		.px2rem(border-radius,15);
+		color: #fff;
 		position: relative;
 		span{
 			display: block;
@@ -44,18 +51,17 @@
 			background: url("../../static/img/search_game.png");
 			background-size: 100% 100%;
 			.px2rem(margin-left,17);
-
 		}
 		input{
 			float: right;
 			.px2rem(width,215);
 			.px2rem(height,30);
 			.px2rem(margin-right,20);
-			background: #eef1f6;
+			color: #fff;
+			background: none;
 			.px2rem(font-size,12);
 			border: none;
 			outline:none;
-
 		}
 
 	}

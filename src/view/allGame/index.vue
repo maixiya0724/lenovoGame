@@ -17,8 +17,6 @@
 				</div>
 			</div>
 				<page></page>
-
-                
 		</div>
 	</div>
 </template>

@@ -4,9 +4,7 @@
  -->
 
 <template>
-	<div class="page">
-        <h1>分页</h1>
-    </div>
+
 </template>
 <style scoped lang="less">
 
@@ -19,10 +17,17 @@
 
 <script type="text/javascript">
 
+
 	export default{
 		data(){
 				return{}
 		},
+		mounted(){
+			
+		},
+		methods:{
+		
+		}
 
 	}
     

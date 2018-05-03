@@ -8,39 +8,25 @@
 				<div class="SlCenterR">
 					<SearchTitle text="用户信息" imgUrl="../../../static/img/search_user.png"></SearchTitle>
 					<div class="userInfo">
-						<div class="info">欢迎您,</div> <div class="data">您玩过的区服:30</div>
+						<div class="info">欢迎您,{{userInfo.name}}</div> <div class="data">您玩过的区服:{{userInfo.newData}}</div>
 					</div>
 					<SearchTitle text="服务器列表" imgUrl="../../../static/img/search_data.png"></SearchTitle>
 					<div class="dataSev">
 						<p class="title">推荐服务器</p>
 						<div class="sevList">
-							<div class="sevListItem">不可能</div>
-							<div class="sevListItem active">打工是</div>
+							<a class="sevListItem active" @click="chooseData">不可能</a>
+							<a class="sevListItem ">打工是</a>
 						</div>
 						<p class="title">选择服务器</p>
 						<div class="chooseSev">
-
+							
 							<div class="changeData"><span>选择服务器类型</span>
-								<form  action="">
-									<select name="dataSev">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="2">2</option>
-									</select>
-								</form>
+								<div class="selectData"><selectData></selectData></div>
+								
 							</div>
 							<div class="changeData"><span>选择公测服</span>
-								<form  action="">
-									<select name="dataSev">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="2">2</option>
-									</select>
-								</form>
+								<div class="selectData"><selectData></selectData></div>
 							</div>
-
-							
-
 
 						</div>
 						<div class="changeSev">

@@ -7,35 +7,31 @@
 			<div class="searchCenter">
 				<div class="searchCenLeft">
 					<div class="searchCengame">
-						<img src="http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg" class="gameImg" alt="游戏图片"/>
+						<img :src="gameData.url" class="gameImg" alt="游戏图片"/>
 						<div class="gameInfo">
-							<p class="name">游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏</p>
-							<p class="info">游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游戏游</p>
+							<p class="name">{{gameData.name}}</p>
+							<p class="info">{{gameData.info}}</p>
 						</div>
-						<div class="gameStart">开始游戏</div>
+						<a class="gameStart" :href="startUrl" target="_blank">开始游戏</a>
 					</div>
 					<div class="gameScImg">
 						<SearchTitle text="游戏截图" imgUrl="../../../static/img/search_sc.png"></SearchTitle>
-						<img class="gameScImgPhoto" src="../../../static/img/icon_allgame.png" />
+						<img class="gameScImgPhoto" :src="gameData.sreenUrl" />
 					</div>
-
 				</div>
+
 				<div class="searchCenRight">
 					<SearchTitle  text="游戏截图" imgUrl="../../../static/img/search_hot_game.png"></SearchTitle>
-					<div class="gameItem">
-						<img src="../../../static/img/icon_allgame.png" class="itemImg"/>
+					<div class="gameItem" v-for="(item,index) in hotGameList" >
+						<img :src="item.imgUrl" class="itemImg"/>
 						<div class="itemInfo">
-							<p>游戏名称最多8个字</p>
-							<div class="startGame">开始游戏</div>
+							<p>{{item.name}}</p>
+							<a href="http://www.baidu.com" target="_blank" class="startGame">开始游戏</a>
 						</div>
 					</div>
-					<div class="gameItem">
-						<img src="../../../static/img/icon_allgame.png" class="itemImg"/>
-						<div class="itemInfo">
-							<p>游戏名称最多8个字</p>
-							<div class="startGame">开始游戏</div>
-						</div>
-					</div>
+
+
+					
 				</div> 
 			</div>
 			

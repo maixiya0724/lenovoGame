@@ -2,16 +2,13 @@
 	<div class="allGame">
 		<div class="allGameMian">
 			<SearchTop></SearchTop>
-
 			<div class="slideShow">
 				<slider v-bind:sliderList="sliderList" ></slider>
 			</div>
-
 			<div class="gameTitle">
 				<div class="active" v-for="(item,index) in gameType">{{item}}</div>
 			</div>
 			<div class="allGameList clear">
-
 				<div class="allGameMain">
 					<gameItem  v-for="(item,index) in sliderList" :key="index" :gameName="item.name" :imgUrl="item.url"></gameItem>
 				</div>
@@ -33,7 +30,6 @@
         .slider {
             .px2rem(width, 1200);
             .px2rem(height, 400);
-            background: red;
             .carousel {
                 .px2rem(width, 1200);
                 .px2rem(height, 400);

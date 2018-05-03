@@ -5,13 +5,13 @@
 		<div class="gameLogoutMain">
 			<SearchTop></SearchTop>
 			<div class="centerTop">
-				<div v-if="false" class="centerTopL">
+				<div  class="centerTopL">
 
 					<div class="userTitle"></div>
 					<div class="goLogin">立即登录</div>
 					<p>登录以后显示您的游戏内容</p>
 				</div>
-				<div class="centerTopL">
+				<div v-if="false" class="centerTopL">
 					<div class="userInfo">
 						<div class="userInfoImg"></div>
 						<div class="userInfoName">

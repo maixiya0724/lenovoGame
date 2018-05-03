@@ -54,8 +54,6 @@ export default{
                 console.log('结果',this.result);
                 ts.page++;
                 console.log('page1',this.page)
-
-
             })
         },
         getSecond(page,gid){
@@ -116,7 +114,6 @@ export default{
                     }
                 }
             });
-
         },
         //页面跳转
         jump(name,pms){

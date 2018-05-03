@@ -9,8 +9,8 @@
 		<div class="topLeft">联想游戏中心/找游戏</div>
 		<div class="topRight">
 			<div class="formInput">
-				<span></span>
-				<input type="text" name="" placeholder="Search..." />
+				<span @click="search(searchInput)" ></span>
+				<input type="text" @keyup.enter="search(searchInput)"  v-model="searchInput" @input="search(searchInput)" placeholder="Search..." />
 			</div>
 		</div>
 	</div>
@@ -67,14 +67,37 @@
 	}
 
 }
+
+
 </style>
-
-
 <script type="text/javascript">
 	export default{
 		data(){
-				return{}
+				return{
+					searchInput:"",
+				}
 		},
+		mounted(){
+		
+		},
+		methods:{
+			
+			 // 跳转搜索页传参
+        	search(info){
+	            if(info==''){
+		                return false
+		            }
+		            const options = {
+		                eventId: '001',
+		                eventDes: '搜索游戏',
+		                searchName: info
+		            };
+		            this.$router.push({path: '../searchpage', query: {info: info}});
+		            this.sendEventInfo(options)
+		        },
+
+			}
+
 
 		
 	}

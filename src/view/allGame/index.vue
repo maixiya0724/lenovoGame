@@ -6,14 +6,18 @@
 				<slider v-bind:sliderList="sliderList" ></slider>
 			</div>
 			<div class="gameTitle">
-				<div class="active" v-for="(item,index) in gameType">{{item}}</div>
+				<a :class="index===0?'active':'' "  @click="selectIndex(index,$event)" v-for="(item,index) in gameType">{{item}}</a>
 			</div>
+
 			<div class="allGameList clear">
 				<div class="allGameMain">
 					<gameItem  v-for="(item,index) in sliderList" :key="index" :gameName="item.name" :imgUrl="item.url"></gameItem>
 				</div>
 			</div>
-				<page></page>
+            <div class="allGamePage">
+                <page></page>
+            </div>
+				
 		</div>
 	</div>
 </template>

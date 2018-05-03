@@ -6,16 +6,15 @@
  -->
 
 <template>
-	
 	<div  class="slider">
 	        <div id="myCarousel" class="carousel slide">
 		  <ol class="carousel-indicators">
 		    <li data-target="#myCarousel" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
 		  </ol>
 		  <div class="carousel-inner">
-		    <div  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
+		    <a  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
 		    	<img :src="item.url" alt=""/>
-		    </div>		    
+		    </a>		    
 		    
 		  </div>
 		  

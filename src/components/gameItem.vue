@@ -9,12 +9,13 @@
 <template>
 	<div class="gameItem">
 		<div class="itemImg">
-			<img v-bind:src="imgUrl" alt=""/>
+            <a :href="imgUrl"><img v-bind:src="imgUrl" alt=""/></a>
+
 			<div class="itemStart">
 				<span class="gameIn"></span>
-				<span>进入游戏</span>
+				<a>进入游戏</a>
 				<span class="gameC"></span>
-				<span>选服</span>
+				<a>选服</a>
 			</div>
 		</div>
 		<div class="itemName">{{gameName}}</div>
@@ -27,7 +28,6 @@
 .clearfix {
     zoom: 1
 }
-
 .clearfix:after {
     content: "";
     height: 0;
@@ -35,6 +35,9 @@
     display: block;
     visibility: hidden;
     clear: both
+}
+a:hover, a:focus {
+    text-decoration: none;
 }
 
 .gameItem{
@@ -65,11 +68,12 @@
         background: rgba(0,0,0,0.5);
         text-align: center;
         .px2rem(line-height,32);
-        color: #fff;
-        span{
+        color: #f6f6f6;
+        span,a{
             display: inline-block;
             .px2rem(font-size,16);
             float: left;
+            color: #f6f6f6;
         }
         .gameIn{
             
@@ -94,8 +98,6 @@
         }
 
     }
-
-    
 }
 .itemName{
         .px2rem(width,270);
@@ -103,7 +105,7 @@
         .px2rem(font-size,18);
         .px2rem(line-height,55);
         .px2rem(text-indent,10);
-        color: #fff;
+        color: #f6f6f6;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

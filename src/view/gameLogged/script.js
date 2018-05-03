@@ -22,6 +22,8 @@ export default{
 				reImgList:[{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg",index:1,name:"王者荣耀"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg",index:2,name:"绝地求生"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg",index:3,name:"英雄联盟"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg",index:4,name:"贪玩蓝月"}],
 				hotGame:[{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg",index:1,name:"王者荣耀"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg",index:2,name:"绝地求生"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg",index:3,name:"英雄联盟"},{url:"http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg",index:4,name:"贪玩蓝月"}],
 				dataSerList:[{name:"英雄联盟",data:"100",time:"07.24"},{name:"英雄联盟",data:"100",time:"07.24"},{name:"英雄联盟",data:"100",time:"07.24"}],
+				abbrList:["全部游戏","不限","ABCDE","FGHIJ","LMNOP","VWXYZ"]
+
 
 			} 
 	},
@@ -31,6 +33,14 @@ export default{
 				  interval: 2000,
 				  
 				})
+			},
+			startGame:function(gameUrl){
+				window.location.href="http://www.baidi.com"
+			},
+			selectGame:function(index,event){
+				$(".allGameTitle a").removeClass("active");
+				$(event.target).addClass("active")
+
 			}
 		}
 	

@@ -42,7 +42,7 @@ body {
                 .px2rem(height,
                 400);
                 float: left;
-                background: rgba(55, 48, 138, 0.35);
+                background: rgba(55, 48, 138, 0.2);
                 background: #37308a;
                 .userInfo {
                     width: 100%;
@@ -50,6 +50,7 @@ body {
                     134);
                     border-bottom: 1px solid #140c0e;
                     overflow: hidden;
+                    background:rgba(38,33,98,0.35);
 
                     .userInfoImg {
 
@@ -65,6 +66,12 @@ body {
                         50);
 
                         float: left;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                             .px2rem(border-radius,
+                        50);
+                        }
                     }
                     .userInfoName {
                         float: right;
@@ -131,12 +138,14 @@ body {
                     .dataList {
                         width: 100%;
                         .dataItem {
+                            display: block;
                             width: 100%;
                             .px2rem(height,
                             50);
                             .px2rem(line-height,
                             50);
                             border-bottom: 1px solid #140c0e;
+
                             div {
                                 float: left;
                             }
@@ -185,6 +194,9 @@ body {
                                 7);
                             }
                         }
+                        .dataItem:hover{
+                            background:rgba(38,33,98,0.35); 
+                        }
                     }
                 }
                 .userTitle {
@@ -194,16 +206,23 @@ body {
                     175);
                     .px2rem(border-radius,
                     88);
-                    .px2rem(padding,
-                    10);
+                    
                     background: #fff;
                     margin: 0 auto;
                     .px2rem(margin-top,
                     60);
                     .px2rem(margin-bottom,
                     30);
+                    img{
+                    width: 100%;
+                    height: 100%;
+                    .px2rem(border-radius,
+                    88);
+                    
+                    }
                 }
                 .goLogin {
+                    display: block;
                     .px2rem(width,
                     172);
                     .px2rem(height,
@@ -299,12 +318,13 @@ body {
                             .px2rem(line-height,
                             32);
                             color: #fff;
-                            span {
+                            span,a{
                                 display: inline-block;
                                 .px2rem(font-size,
                                 16);
                                 float: left;
                             }
+
                             .gameIn {
 
                                 .px2rem(width,
@@ -451,7 +471,19 @@ body {
                                             270);
                                             .px2rem(height,
                                             560);
-                                            
+                                            a{
+                                                display: block;
+                                                .px2rem(width,
+                                            270);
+                                                .px2rem(height,
+                                                50);
+                                               
+                                            }
+
+                                            a:hover{
+                                                 background:rgba(0,0,0,0.35); 
+                                            }
+
                                             li {
                                                 color: #f6f5f8;
                                                 width: 100%;
@@ -546,6 +578,7 @@ body {
                     .px2rem(left,
                     -20);
                     .imgListItem {
+                        display: block;
                         float: left;
                         .px2rem(width,
                         270);
@@ -581,7 +614,7 @@ body {
                     .px2rem(margin-bottom,
                     10);
 
-                    div {
+                    a {
                         float: left;
                         .px2rem(font-size,
                         24);
@@ -593,7 +626,7 @@ body {
                         .px2rem(line-height,
                         35);
                     }
-                    div:first-child {
+                    a:first-child {
                         margin-left: 0;
                     }
 
@@ -611,6 +644,7 @@ body {
                         .px2rem(left,
                         -25);
                         .gameIconItem {
+                            display: block;
                             .px2rem(width,
                             110);
                             .px2rem(height,

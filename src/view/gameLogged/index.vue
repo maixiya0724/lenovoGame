@@ -4,42 +4,42 @@
 	<div class="clearfix gameLogout">
 		<div class="gameLogoutMain">
 			<SearchTop></SearchTop>
-			<div class="centerTop">
-				<div  class="centerTopL">
-
-					<div class="userTitle"></div>
-					<div class="goLogin">立即登录</div>
+				<div class="centerTop">
+					<div v-if="false"  class="centerTopL">
+					<div class="userTitle">
+						<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
+					</div>
+					<a class="goLogin">立即登录</a>
 					<p>登录以后显示您的游戏内容</p>
 				</div>
-				<div v-if="false" class="centerTopL">
+				<div  class="centerTopL">
 					<div class="userInfo">
-						<div class="userInfoImg"></div>
+						<div class="userInfoImg">
+							<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
+						</div>
 						<div class="userInfoName">
 							<div class="name">游戏名称最多4</div>
 							<div class="logout">退出</div>
 						</div>
 					</div>
-					
 						<div class="myGameList">
-
 							<div class="title">我的游戏</div>
 							<div class="dataList">
-								<div class="dataItem">
+								<a class="dataItem">
 									<div class="itemName">游戏名称七个字</div>
 									<div class="itemNum">909服</div>
 									<div class="itemStart">进入游戏</div>
-								</div>
+								</a>
 
 							</div>
 					
+						</div>
 					</div>
-				</div>
-				<div class="centerTopR">
+				<div  class="centerTopR">
 					<slider v-bind:sliderList="sliderList" ></slider>
 				</div>
 
 			</div>
-
 			<div class="reGame">
 				<SearchTitle text="推荐游戏" imgUrl="../../../static/img/reImg.png"></SearchTitle>
 
@@ -47,12 +47,15 @@
 					<div class="gameListMain">
 					<div v-for="(item,index) in reImgList" class="gameItem">
 						<div class="itemImg">
-							<img :src="item.url" alt=""/>
+							<a :href="item.url">
+								<img :src="item.url" alt=""/>
+							</a>
+							
 							<div class="itemStart">
 								<span class="gameIn"></span>
-								<span>进入游戏</span>
+								<a @click="startGame(item.url)">进入游戏</a>
 								<span class="gameC"></span>
-								<span>选服</span>
+								<a>选服</a>
 							</div>
 						</div>
 						<div class="itemName">{{item.name}}</div>
@@ -83,15 +86,17 @@
 	      										    <li data-target="#myCarousel2" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
 	      										    
 	      										  </ol>
-	      										 
 	      										  <div class="carousel-inner">
 	      										    <div  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
 	      										    	<ul class="allData">
-				      										<li v-for="(items,index) in dataSerList">
-				      											<div class="one">{{items.name}}</div>
-																<div class="two">{{items.data}}</div>
-																<div class="three">{{items.time}}</div>
-				      										</li>
+	      										    		<a v-for="(items,index) in dataSerList" href="#">
+	      										    			<li >
+					      											<div class="one">{{items.name}}</div>
+																	<div class="two">{{items.data}}</div>
+																	<div class="three">{{items.time}}</div>
+					      										</li>
+	      										    		</a>
+				      										
 				      									</ul>
 	      										    </div>		    
 	      										    
@@ -110,17 +115,14 @@
 							<SearchTitle text="热门游戏" imgUrl="../../../static/img/hot.png"></SearchTitle>
 							<div class="imgList">
 								<div class="imgOver">
-									<div class="imgListItem" v-for="(item,index) in hotGame">
+									<a class="imgListItem" href="#" v-for="(item,index) in hotGame">
 										<img :src="item.url" alt="游戏图片"/>
-									</div>
+									</a>
 								</div>
 							</div>
 							<div class="allGame">
 								<div class="allGameTitle">
-									<div class="active">123232</div>
-									<div>1232</div>
-									<div>1223232</div>
-									<div>123243</div>
+									<a @click="selectGame(index,$event)" :class="index===0?'active':''" v-for="(item,index) in abbrList" >{{item}}</a>
 								</div>
 								<div class="gameIconList">
 									<div class="gameIconMove">
@@ -157,11 +159,9 @@
     .centerTopR {
         .px2rem(width, 900);
         .px2rem(height, 400);
-        background: red;
         .slider {
             .px2rem(width, 900);
         .px2rem(height, 400);
-            background: red;
             .carousel {
                 .px2rem(width, 900);
         		.px2rem(height, 400);

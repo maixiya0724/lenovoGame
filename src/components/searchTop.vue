@@ -10,7 +10,7 @@
 		<div class="topRight">
 			<div class="formInput">
 				<span @click="search(searchInput)" ></span>
-				<input type="text" @keyup.enter="search(searchInput)"  v-model="searchInput" @input="search(searchInput)" placeholder="Search..." />
+				<input type="text" @keyup.enter="search(searchInput)"  v-model="searchInput"  placeholder="Search..." />
 			</div>
 		</div>
 	</div>
@@ -67,8 +67,6 @@
 	}
 
 }
-
-
 </style>
 <script type="text/javascript">
 	export default{
@@ -84,6 +82,7 @@
 			
 			 // 跳转搜索页传参
         	search(info){
+        		console.log(0)
 	            if(info==''){
 		                return false
 		            }
@@ -92,8 +91,7 @@
 		                eventDes: '搜索游戏',
 		                searchName: info
 		            };
-		            this.$router.push({path: '../searchpage', query: {info: info}});
-		            this.sendEventInfo(options)
+		            this.$router.push({path: '../search', query: {info:info}});
 		        },
 
 			}

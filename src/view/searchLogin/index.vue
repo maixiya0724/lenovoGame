@@ -31,12 +31,12 @@
 						</div>
 						<div class="changeSev">
 								<div class="dataNum">
-									<span>0-1000</span>
-									<span class="active">1000-2000</span>
+									<a>0-1000</a>
+									<a class="active">1000-2000</a>
 								</div>
 								<div class="changeData">
-									<span>公测222服火爆</span>
-									<span class="active">jjjjjjjj</span>
+									<a>公测222服火爆</a>
+									<a class="active">jjjjjjjj</a>
 								</div>
 							</div>
 					</div>

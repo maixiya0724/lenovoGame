@@ -14,7 +14,6 @@ let publicPath = {
 };
 console.log('构建环境输出:');
 console.log(publicPath[env], env);
-
 module.exports = {
     build: {
         env: require('./prod.env'),

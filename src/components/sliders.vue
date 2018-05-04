@@ -12,8 +12,8 @@
 		    <li data-target="#myCarousel" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
 		  </ol>
 		  <div class="carousel-inner">
-		    <a  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
-		    	<img :src="item.url" alt=""/>
+		    <a  class="item" @click="goDetails()" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
+		    	<img :src="item.poster" alt=""/>
 		    </a>		    
 		    
 		  </div>
@@ -42,7 +42,7 @@
 		mounted(){
 			this.sliderInit()
 		},
-
+		
 		props:["className","sliderList","switchImg"],
 		methods:{
 			sliderInit:function(){
@@ -50,8 +50,10 @@
 				  interval: 2000,
 				  
 				})
+			},
+			goDetails:function(){//点击进入游戏的方法
+				console.log()
 			}
 		}
-
 	}
 </script>

@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				<div  class="centerTopR">
-					<slider v-bind:sliderList="sliderList" ></slider>
+					<slider v-bind:sliderList="banners" ></slider>
 				</div>
 
 			</div>
@@ -45,17 +45,17 @@
 
 				<div class="gameList">
 					<div class="gameListMain">
-					<div v-for="(item,index) in reImgList" class="gameItem">
+					<div v-for="(item,index) in hotGame" class="gameItem">
 						<div class="itemImg">
 							<a :href="item.url">
-								<img :src="item.url" alt=""/>
+								<img :src="item.poster" alt=""/>
 							</a>
 							
 							<div class="itemStart">
 								<span class="gameIn"></span>
-								<a @click="startGame(item.url)">进入游戏</a>
+								<a  @click="callNative(item.category1,item.elementName,item.gameElement.id,item.gameElement.downLoadUrl,item.gameElement.icon,item.gameElement.packageName,item.gameElement.gameUrl)">进入游戏</a>
 								<span class="gameC"></span>
-								<a>选服</a>
+								<a href="/#/searchLogin">选服</a>
 							</div>
 						</div>
 						<div class="itemName">{{item.name}}</div>
@@ -84,16 +84,15 @@
 								  			 <div id="myCarousel2" class="carousel slide">
 	      										  <ol class="carousel-indicators">
 	      										    <li data-target="#myCarousel2" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
-	      										    
 	      										  </ol>
 	      										  <div class="carousel-inner">
 	      										    <div  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
 	      										    	<ul class="allData">
-	      										    		<a v-for="(items,index) in dataSerList" href="#">
+	      										    		<a v-for="(items,index) in goodGameRank" href="#">
 	      										    			<li >
-					      											<div class="one">{{items.name}}</div>
-																	<div class="two">{{items.data}}</div>
-																	<div class="three">{{items.time}}</div>
+					      											<div class="one">{{items.elementName}}</div>
+																	<div class="two">{{items.subTitle}}</div>
+																	<div class="three">{{items.subTitleLink}}</div>
 					      										</li>
 	      										    		</a>
 				      										
@@ -115,8 +114,8 @@
 							<SearchTitle text="热门游戏" imgUrl="../../../static/img/hot.png"></SearchTitle>
 							<div class="imgList">
 								<div class="imgOver">
-									<a class="imgListItem" href="#" v-for="(item,index) in hotGame">
-										<img :src="item.url" alt="游戏图片"/>
+									<a class="imgListItem" href="#" v-for="(item,index) in goodGame">
+										<img :src="item.poster" alt="游戏图片"/>
 									</a>
 								</div>
 							</div>

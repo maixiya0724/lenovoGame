@@ -4,29 +4,33 @@
 	<div class="clearfix search">
 		<div class="searchMain">
 			<SearchTop></SearchTop>
-			<div class="searchCenter">
-				<div class="searchCenLeft">
-					<div class="searchCengame">
-						<img :src="gameData.url" class="gameImg" alt="游戏图片"/>
-						<div class="gameInfo">
-							<p class="name">{{gameData.name}}</p>
-							<p class="info">{{gameData.info}}</p>
+			<div  class="searchCenter">
+				<div v-if="flag">
+					<div  class="searchCenLeft" v-for="(item,index) in gameList">
+						<div class="searchCengame">
+							<img :src="item.icon" class="gameImg" alt="游戏图片"/>
+							<div class="gameInfo">
+								<p class="name">{{item.gameName}}</p>
+								<p class="info">{{item.detailInfo}}</p>
+							</div>
+							<a class="gameStart" href="" target="_blank">开始游戏</a>
 						</div>
-						<a class="gameStart" :href="startUrl" target="_blank">开始游戏</a>
-					</div>
-					<div class="gameScImg">
-						<SearchTitle text="游戏截图" imgUrl="../../../static/img/search_sc.png"></SearchTitle>
-						<img class="gameScImgPhoto" :src="gameData.sreenUrl" />
+						<div class="gameScImg">
+							<SearchTitle text="游戏截图" imgUrl="../../../static/img/search_sc.png"></SearchTitle>
+							<img class="gameScImgPhoto" :src="item.bgUrl" />
+						</div>
 					</div>
 				</div>
-
+				<div v-if="!flag" class="searchCenLeft">
+					<h1>暂无游戏</h1>
+				</div>
 				<div class="searchCenRight">
 					<SearchTitle  text="游戏截图" imgUrl="../../../static/img/search_hot_game.png"></SearchTitle>
-					<div class="gameItem" v-for="(item,index) in hotGameList" >
-						<img :src="item.imgUrl" class="itemImg"/>
+					<div class="gameItem" v-for="(item,index) in hotGame">
+						<img :src="item.poster" class="itemImg"/>
 						<div class="itemInfo">
-							<p>{{item.name}}</p>
-							<a href="http://www.baidu.com" target="_blank" class="startGame">开始游戏</a>
+							<p>{{item.elementName}}</p>
+							<a @click="callNative(item.category1,item.elementName,item.gameElement.id,item.gameElement.downLoadUrl,item.gameElement.icon,item.gameElement.packageName,item.gameElement.gameUrl)" target="_blank" class="startGame">开始游戏</a>
 						</div>
 					</div>
 

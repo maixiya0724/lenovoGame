@@ -3,7 +3,7 @@
 		<div class="allGameMian">
 			<SearchTop></SearchTop>
 			<div class="slideShow">
-				<slider v-bind:sliderList="sliderList" ></slider>
+				<slider v-bind:sliderList="banners"></slider>
 			</div>
 			<div class="gameTitle">
 				<a :class="index===0?'active':'' "  @click="selectIndex(index,$event)" v-for="(item,index) in gameType">{{item}}</a>

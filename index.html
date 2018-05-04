@@ -16,20 +16,16 @@
     <!-- 最后上线用下面这个资源 -->
     <!--<link rel="stylesheet" href="./static/fonts/iconfont.css">-->
 </head>
+
 <script>
     (function () {
+        console.log(0000000)
         function flexAble() {
-            let deviceWidth = document.documentElement.clientWidth;
-            // if (deviceWidth > 1920) {
-            //     deviceWidth = 1920;
-            // }
-            // if (deviceWidth < 1023) {
-            //     deviceWidth = 1023;
-            // }
+            var deviceWidth = document.documentElement.clientWidth;
             document.documentElement.style.fontSize = Math.round(deviceWidth / 19.2) + 'px';
         }
         flexAble();
-        let timer;
+        var timer;
         window.onresize = function () {
             clearTimeout(timer);
             timer = setTimeout(function () {
@@ -37,20 +33,11 @@
             }, 0)
         };
     })();
-
 </script>
+
 <body>
 <div id="app"></div>
-
-<!-- built files will be auto injected -->
-<!--<script src="/static/simple-calendar.js"></script>-->
 <script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/jquery.min.js"></script>
 <script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/echo.min.js"></script>
-<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/js-cookie/js.cookie.js"></script>
-<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/md5.min.js"></script>
-<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/Base64.js"></script>
-<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/sha1.js"></script>
-<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/AES.js"></script>
-<!--<script src="<%=htmlWebpackPlugin.options.projectPath%>static/js/libs/gweb.0.01.min.js"></script>-->
 </body>
 </html>

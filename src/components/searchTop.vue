@@ -82,7 +82,6 @@
 			
 			 // 跳转搜索页传参
         	search(info){
-        		console.log(0)
 	            if(info==''){
 		                return false
 		            }

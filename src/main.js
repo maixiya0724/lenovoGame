@@ -17,6 +17,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 
 Vue.prototype.$bus = new Vue();
 //ajax
+
 Vue.prototype.jqajax = function (url, pms = {}, cbk) {
     if (!url || $.trim(url) == "" || !cbk) return;
     let _type = pms.type ? pms.type : "JSONP",

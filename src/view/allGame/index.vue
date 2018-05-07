@@ -6,16 +6,26 @@
 				<slider v-bind:sliderList="banners"></slider>
 			</div>
 			<div class="gameTitle">
-				<a :class="index===0?'active':'' "  @click="selectIndex(index,$event)" v-for="(item,index) in gameType">{{item}}</a>
+				<a :class="index===0?'active':'' "  @click="selectIndex(index,item)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
 			</div>
 
 			<div class="allGameList clear">
 				<div class="allGameMain">
-					<gameItem  v-for="(item,index) in sliderList" :key="index" :gameName="item.name" :imgUrl="item.url"></gameItem>
+					<gameItem :channelInfo="channelInfo" :gameItem="item" :ItemID="item.id" v-for="(item,index) in listGame" :key="index" :gameName="item.gameName" :imgUrl="item.bgUrl"></gameItem>
 				</div>
 			</div>
             <div class="allGamePage">
-                <page></page>
+                    <div id="page">
+                        <ul class="pagination">
+                            <li v-show="current != 1" @click="current-- && goto(current)" ><a class="next">上一页</a></li>
+                            <li v-for="index in pages" @click="goto(index)" :key="index">
+                              <a :class="{'active':current == index}"  href="#" >{{index}}</a>
+                            </li>
+                            <li  v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a class="next" href="#" >下一页</a></li>
+                            <span class="allPage">共{{pages.length}}页</span>
+                            <div class="jumpPage"><span>到第</span><input class="pageNum" value="1" /> <label>页</label> <input type="button" class="btnPage" value="确定"></div>
+                        </ul>
+                    </div>
             </div>
 				
 		</div>
@@ -59,12 +69,26 @@
                     }
                     .active {
                         .px2rem(width, 10);
-                        background: #fff;
-                        margin: none;
+                         background: #4e92ff;
+                         margin: none;
                     }
                 }
                 .carousel-control{ // 控制上下样式
-                	display: none;
+                    .px2rem(width,18);
+                    .px2rem(height,48);
+                    position:absolute;
+                    top:50%;
+                    transform: translateY(-50%);
+                    opacity: 1;
+                    filter: alpha(opacity=100);
+                }
+                .left{
+                    background:url("../../../static/img/last.png");
+                    background-size:100% 100%;
+                }
+                .right{
+                    background:url("../../../static/img/next.png");
+                    background-size:100% 100%;
                 }
             }
         }

@@ -18,8 +18,8 @@
 		    
 		  </div>
 		  
-		  <a v-if="sliderList" class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-		  <a v-if="sliderList" class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		  <a v-if="sliderList" class="carousel-control left" href="#myCarousel" data-slide="prev"></a>
+		  <a v-if="sliderList" class="carousel-control right" href="#myCarousel" data-slide="next"></a>
 		</div>
 	
 	    </div> 

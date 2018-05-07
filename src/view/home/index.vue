@@ -53,9 +53,9 @@
 							
 							<div class="itemStart">
 								<span class="gameIn"></span>
-								<a  @click="callNative(item.category1,item.elementName,item.gameElement.id,item.gameElement.downLoadUrl,item.gameElement.icon,item.gameElement.packageName,item.gameElement.gameUrl)">进入游戏</a>
+								<a  @click="getGame(item.gameElement.id)">进入游戏</a>
 								<span class="gameC"></span>
-								<a href="/#/searchLogin">选服</a>
+								<a @click="goDetails(item.gameElement.id)">选服</a>
 							</div>
 						</div>
 						<div class="itemName">{{item.name}}</div>
@@ -121,20 +121,19 @@
 							</div>
 							<div class="allGame">
 								<div class="allGameTitle">
-									<a @click="selectGame(index,$event)" :class="index===0?'active':''" v-for="(item,index) in abbrList" >{{item}}</a>
+									<a  @click="selectIndex(index,item)" :class="index===0?'active':''" v-for="(item,index) in gameCategory2" >{{item.cateName}}</a>
 								</div>
 								<div class="gameIconList">
 									<div class="gameIconMove">
-										<div class="gameIconItem">
+										<div class="gameIconItem" v-for="(item,index) in listGame">
 											<div class="iconImg">
-												<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="游戏图标"/>
+												<img :src="item.bgUrl" alt="游戏图标"/>
 											</div>
-											<p>游戏名称</p>
+											<p>{{item.gameName}}</p>
 										</div>
 																				
 									</div>
 								</div>
-
 
 							</div>
 					</div>
@@ -158,6 +157,7 @@
     .centerTopR {
         .px2rem(width, 900);
         .px2rem(height, 400);
+         position: relative;
         .slider {
             .px2rem(width, 900);
         .px2rem(height, 400);
@@ -186,12 +186,26 @@
                     }
                     .active {
                         .px2rem(width, 10);
-                        background: #fff;
-                        margin: none;
+                        background: #4e92ff;
+                        .px2rem(margin-top,-10);
                     }
                 }
                 .carousel-control{ // 控制上下样式
-                	display: none;
+                	.px2rem(width,18);
+                	.px2rem(height,48);
+                	position:absolute;
+                	top:50%;
+  					transform: translateY(-50%);
+  					opacity: 1;
+                    filter: alpha(opacity=100);
+                }
+                .left{
+                	background:url("../../../static/img/last.png");
+                	background-size:100% 100%;
+                }
+                .right{
+					background:url("../../../static/img/next.png");
+                	background-size:100% 100%;
                 }
             }
         }

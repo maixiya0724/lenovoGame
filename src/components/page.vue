@@ -4,91 +4,13 @@
  -->
 
 <template>
-	<div id="page">
-		<ul class="pagination">
-            <li v-show="current != 1" @click="current-- && goto(current)" ><a class="next">上一页</a></li>
-            <li v-for="index in pages" @click="goto(index)" :key="index">
-              <a :class="{'active':current == index}"  href="#" >{{index}}</a>
-            </li>
-            <li  v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a class="next" href="#" >下一页</a></li>
-            <span class="allPage">共{{pages.length}}页</span>
-            <div class="jumpPage"><span>到第</span><input class="pageNum" value="1" /> <label>页</label> <input type="button" class="btnPage" value="确定"></div>
-        </ul>
-	</div>
+
 </template>
 
 <style scoped lang="less">
 @import "../common/base.less";
-#page{
-  .px2rem(height,40);
-  margin: 0 auto;
-  background: blue;
 
-	.pagination li{
-		.px2rem(width,40);
-		.px2rem(height,40);
-		
-		a{
-			.px2rem(width,40);
-			.px2rem(height,40);
-			.px2rem(line-height,40);
-			.px2rem(font-size,12);
-      .px2rem(margin-left,7);
-			text-align: center;
-			padding: 0;
-			color: #4f504f;
-      border:none;
-		}
-		.active{
-			background: #4e92ff !important;
-			color: #fff;
-		}
-
-		.next{
-			.px2rem(height,40);
-			.px2rem(width,65);
-		}
-	}
-  .allPage{
-    .px2rem(line-height,40);
-    .px2rem(margin-left,10);
-    background: #fff;
-
-  }
-  .jumpPage{
-    display: inline-block;
-    .px2rem(font-size,14);
-    span{
-      background: #fff;
-      .px2rem(margin-left,5);
-    }
-    label{
-      display:inline-block;
-      background: #fff;
-       .px2rem(margin-right,8);
-    }
-    .pageNum{
-      .px2rem(width,40);
-      .px2rem(height,40);
-      .px2rem(line-height,40);
-      text-align: center;
-      .px2rem(margin-left,10);
-      .px2rem(margin-right,10);
-      border: none;
-    }
-    .btnPage{
-      background: #fff;
-      border: none;
-      .px2rem(width,50);
-      .px2rem(height,40);
-      .px2rem(line-height,40);
-      text-align: center;
-
-    }
-  }
-}
 </style>
-
 
 <script type="text/javascript">
 
@@ -96,9 +18,7 @@
 	export default{
 		data(){
 				  return{
-		            current:1,
-		            showItem:5,
-		            allpage:13,
+		            
 		          }
 		},
   

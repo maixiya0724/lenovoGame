@@ -6,7 +6,7 @@ import slider from "../../components/sliders.vue";
 import getGame from '@/api/getSearch'
 import getMore from '@/api/more'
 import getAwardDetail from '@/api/award/award-add'
-import {jsCallNative} from "../../common/callnative"
+import { jsCallNative } from "../../common/callnative"
 
 export default {
     components: {
@@ -18,97 +18,158 @@ export default {
     data() {
         return {
             sliderList: [{ url: "http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg", index: 1, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg", index: 2, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg", index: 3, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg", index: 4, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg", index: 1, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg", index: 2, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg", index: 3, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg", index: 4, name: "英雄联盟" }],
-            gameType: ["全部游戏", "角色扮演", "战争策略", "体育竞技", "模拟经营"],
-            banners:[],
-            page:1,
-            listId:29147
+            gameType: [],
+            banners: [],
+            list: [],
+            page: 1,
+            listGame: [],
+            gameCategory1: [],
+            gameCategory2: [],
+            category1: '',
+            category2: '',
+            subCategoryIndex: 0,
+            categoryIndex: 0,
+            channelInfo: {}, // 频道ID
+            listId: 29147,
+            //分页
+            current: 1,
+            showItem: 5,
+            allpage: 13,
         }
     },
-    mounted(){
-    	this.getGameLists()
-        this.getFirst()
+    mounted() {
+        this.getGameLists()
+        this.getGameTitle()
+    },
+    computed: {
+        pages: {
+            get: function() {
+                var pag = [];
+                if (this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
+                    //总页数和要显示的条数那个大就显示多少条
+                    var i = Math.min(this.showItem, this.allpage);
+                    while (i) {
+                        pag.unshift(i--);
+                    }
+                } else { //当前页数大于显示页数了
+                    var middle = this.current - Math.floor(this.showItem / 2), //从哪里开始
+                        i = this.showItem;
+                    if (middle > (this.allpage - this.showItem)) {
+                        middle = (this.allpage - this.showItem) + 1
+                    }
+                    while (i--) {
+                        pag.push(middle++);
+                    }
+                }
+
+                return pag
+            },
+            set: function(newValue) { //如果不写计算属性的set，vue会报错
+
+
+            }
+        }
     },
 
     methods: {
-        selectIndex: function(index,event) { // 选项卡点击事件
-            $(".gameTitle a").removeClass("active")
-           
-            $(event.target).addClass("active")
-            
-            switch (index) {
-                case 0:
-                    console.log("a")
-                    break;
-                case 1:
-                    console.log("b")
-                    break;
-                case 3:
-                    console.log("c")
-                    break;
-                case 4:
-                    console.log("d")
-                    break;
-                case 5:
-                    console.log("f")
-                    break;
-            }
+        //获得轮播图
+        getGameLists() {
+            getAwardDetail.getAwardDetail(98).then((res) => {
+                console.log(res.data)
+                $(window).scrollTop(0);
+                // 轮播图
+                this.banners = res.data.channels[0].modules[1].elements;
+                this.banners.page = res.data.channels[0].channelName;
+                this.banners.pageId = res.data.channels[0].id;
+                // 频道信息
+                this.channelInfo.id = res.data.channels[0].id;
+                this.channelInfo.name = res.data.channels[0].channelName;
+
+                // console.log(this.goodGame)
+            })
         },
 
-        getGameLists () {
-                // 接口地址在serviceUrl里
-                getAwardDetail.getAwardDetail(98).then((res) => {
-                    console.log(res.data)
-                    $(window).scrollTop(0);
+        // 获取游戏列表
+        async getGameTitle() {
+            getGame.getMore().then((res) => {
+                console.log(res)
+                this.gameCategory1 = res.data.first
+                this.gameCategory2 = res.data.second
+                this.category1 = this.gameCategory1[2].category1
+                this.category2 = this.gameCategory2[0].category1
+                this.getGame();
 
+            });
+        },
 
-                    // 轮播图
-                    this.banners = res.data.channels[0].modules[1].elements;
+        // 点击游戏列表分类
+        selectIndex(index, item) {
+            $(".gameTitle a").removeClass("active")
+            $(event.target).addClass("active")
+            this.subCategoryIndex = index;
+            this.category2 = item.category1;
+            this.getGame();
+        },
 
-                    this.banners.page = res.data.channels[0].channelName;
-                    this.banners.pageId = res.data.channels[0].id;
-                    // 精品游戏
-                    this.goodGame = res.data.channels[0].modules[2].elements;
-                    //  页游精品游戏开服表
-                    this.goodGameRank = res.data.channels[0].modules[3].elements;
-                    var goodGameRankList= Math.ceil(this.goodGameRank.length/10)
-                    //处理goodGameRankList
-                    for(var i=0;i<goodGameRankList;i++){
-                        (this.sliderList).push(i)
-                    }
-                   
-                    this.cont = res.data.channels[0].modules[4].elements;
-                    // 热门游戏
-                    this.hotGame = res.data.channels[0].modules[5].elements.slice(0,4);
-                   
-                   
-
-                })
-            },
-            getFirst(){//请求全部游戏
-                getMore.getMore(this.listId,this.page).then((res) => {
-                console.log(res.data)
-                if(res.data.datas.length<16){
-                    this.loadingText='已无更多游戏...'
-                }
-                for (let i = 0; i < res.data.datas.length; i++) {
-                    this.list.push(res.data.datas[i])
-                }
+        async getGame() {
+            // console.log(this.category1,this.category2);
+            getGame.getSearch('', this.category1, this.category2).then((res) => {
+                this.listGame = res.data.datas.slice(0, 16)
+                // console.log(this.listGame)       
+                console.log(this.listGame)
                 // 遍历把235*132的图片加到游戏list里
-                for (let j=0;j<this.list.length;j++){
-                    if(!this.list[j].captureFiles){
-                        this.list[j].bgUrl = ''
-                    }else {
-                        for(let i =0;i<this.list[j].captureFiles.length;i++){
-                            if(this.list[j].captureFiles[i].size=='235*132'){
-                                this.list[j].bgUrl = this.list[j].captureFiles[i].url
-                            }else{}
+                for (let j = 0; j < this.listGame.length; j++) {
+                    if (!this.listGame[j].captureFiles) {
+                        this.listGame[j].bgUrl = ''
+                    } else {
+                        for (let i = 0; i < this.listGame[j].captureFiles.length; i++) {
+                            if (this.listGame[j].captureFiles[i].size == '235*132') {
+                                this.listGame[j].bgUrl = this.listGame[j].captureFiles[i].url
+                            } else {}
                         }
                     }
                 }
-                this.page++
             })
-        }
+        },
+        // 跳转详情页路由传参
+        goDetails(name, channelId, id) {
+            const options = {
+                eventId: '003',
+                eventDes: '查看游戏详情',
+                gameId: id
+            }
+            this.$router.push({ name: 'gamedetail', query: { name: name, channelId: channelId, id: id, pageId: '101' } });
+            this.sendEventInfo(options)
+        },
 
+        //分页
+        goto: function(index) {
+            if (index == this.current) return;
+            this.current = index;
+            //这里可以发送ajax请求
+        },
+        pages: function() {
+            var pag = [];
+            if (this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
+                //总页数和要显示的条数那个大就显示多少条
+                var i = Math.min(this.showItem, this.allpage);
+                while (i) {
+                    pag.unshift(i--);
+                }
+            } else { //当前页数大于显示页数了
+                var middle = this.current - Math.floor(this.showItem / 2), //从哪里开始
+                    i = this.showItem;
+                if (middle > (this.allpage - this.showItem)) {
+                    middle = (this.allpage - this.showItem) + 1
+                }
+                while (i--) {
+                    pag.push(middle++);
+                }
+            }
+            return pag
+        },
+        
+       
 
     }
 

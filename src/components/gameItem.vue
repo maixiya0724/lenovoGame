@@ -9,11 +9,10 @@
 <template>
 	<div class="gameItem">
 		<div class="itemImg">
-            <a :href="imgUrl"><img v-bind:src="imgUrl" alt=""/></a>
-
+            <a   @click="goDetails(channelInfo.name,`${channelInfo.id}`,ItemID)"><img v-bind:src="imgUrl" alt=""/></a>
 			<div class="itemStart">
 				<span class="gameIn"></span>
-				<a>进入游戏</a>
+				<a @click="getGame(ItemID)">进入游戏</a>
 				<span class="gameC"></span>
 				<a>选服</a>
 			</div>
@@ -119,9 +118,77 @@ a:hover, a:focus {
 
 	export default{
 		data(){
-				return{}
+				return{
+                    token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QzAwQjE5OTQ1QTBENjFEMjFBMDQ3RTNFRUZFQjM2QUYxJmg9MTUyNTY4ODEzNDMxOCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25SQaOHJZQ0p025MiLRZoRp",
+            //进入游戏接口
+            gameurl:this.gmConf.domainHttps+"passport.4366.com",
+            softid:""
+                }
 		},
-		props:["gameName","imgUrl"]
+        props:{
+            gameName:String,
+            imgUrl:String,
+            ItemID:Number,
+            channelInfo:Object,
+            gameItem:Object,
+            
+
+        },
+        methods:{
+             // 跳转详情页路由传参
+        goDetails(name,channelId,id){
+            console.log(name+'/'+channelId+'/'+id)
+            const options = {
+                eventId:'003',
+                eventDes:'查看游戏详情',
+                gameId:id
+            }
+            this.$router.push({name: 'gamedetail', query: {name:name,channelId:channelId,id: id,pageId:'101'}});
+        },
+        mounted(){
+
+        },
+
+      //获取YYgame
+        getGame(gameId,callback){
+            var ts=this
+            console.log(gameId)
+            var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
+            var ts=this;
+            ts.jqajax(_url,{type:"get",dataType:"json"},function(res){
+               
+                ts.softBrowser = res.data.softkernel;
+                ts.softid=res.data.softId;//game值
+                ts.gameStart(ts.softid);
+            });
+        },
+         //开始游戏
+        gameStart(_sid){
+            var ts = this;
+            if(!_sid)return false;
+            var _url = ts.gameurl+"/channel/lenovo/gamecenter/login.do";
+            _url += "?game="+ts.softid;
+            _url += "&token="+ts.token;
+            _url += "&server="+_sid;
+            _url += "&failUrl="+encodeURIComponent(window.location.href);
+            console.log(_url,_sid);
+            ts.popVideo(_url);
+            
+              window.location.href = _url;
+        },
+          //客户端弹窗
+        popVideo(_url){
+            var ts = this;
+            if(!_url || !ts.isLenovo())return;
+            if(!ts.isIe()){
+                callHostFunction.callBackVideo(_url,ts.softBrowser);
+            }else{
+                window.external.callBackVideo(_url,ts.softBrowser);
+            }
+
+        },
+        
+        }
 
 	}
     

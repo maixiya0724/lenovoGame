@@ -1,7 +1,7 @@
 import SearchTop from "../../components/searchTop.vue";
 import SearchTitle from "../../components/searchTitle.vue";
 import slider from "../../components/sliders.vue";
-import gameItem from "../../components/gameItem.vue";
+
 import page from "../../components/page.vue";
 import getGame from '@/api/getSearch'
 import getAwardDetail from '@/api/award/award-add'
@@ -12,7 +12,6 @@ export default {
         SearchTop: SearchTop,
         SearchTitle: SearchTitle,
         slider: slider,
-        gameItem: gameItem,
         page: page
     },
 
@@ -44,6 +43,7 @@ export default {
         this.getGameLists()
         this.getGameTitle()
         this.getLoginToken()
+        console.log(this.gameId)
     },
     methods: {
          //获取用户登录信息
@@ -160,7 +160,7 @@ export default {
         	this.$router.push({})
         },
         //获取YYgame
-        getGame(gameId,callback){
+        getGameYY(gameId,callback){
             var ts=this
             console.log(gameId)
             var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
@@ -197,6 +197,10 @@ export default {
             }
 
         },
+        moreGame(){
+            this.$router.push({path:"../allGame"})
+        }
+       
 
     }
 

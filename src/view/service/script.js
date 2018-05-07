@@ -14,6 +14,7 @@ export default{
 			return{ 
 
 			userInfo:{name:"啦啦啦",newData:"20"},
+			gameId:this.$route.query.gameId
 
 			} 
 	},
@@ -23,7 +24,9 @@ export default{
 			
 			$(event.target).toggleClass("active")
 		},
-		
+		mounted(){
+			console.log(this.gameId)
+		},
 		getInfo(cbk){
             getAwardDetail.getAwardDetail(this.gameId).then((res) => {
                 $(window).scrollTop(0)

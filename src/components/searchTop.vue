@@ -82,17 +82,14 @@
 			
 			 // 跳转搜索页传参
         	search(info){
+        		
 	            if(info==''){
 		                return false
 		            }
-		            const options = {
-		                eventId: '001',
-		                eventDes: '搜索游戏',
-		                searchName: info
-		            };
-		            this.$router.push({path: '../search', query: {info:info}});
-		        },
 
+		            this.$router.push({path: '../search', query: {info:info}});
+
+		        },
 			}
 
 

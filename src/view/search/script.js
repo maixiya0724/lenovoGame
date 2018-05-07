@@ -8,21 +8,28 @@ export default{
 		SearchTop:SearchTop,
 		SearchTitle:SearchTitle
 	},
-	
+
 	data(){
 			return{  
 				inputText:this.$route.query.info,//路由传递过来的值
 				gameList:[],//搜索到的游戏数组
 				flag:false,//搜索结果
 				hotGame:[],// 热门推荐
-				
 			} 
 	},
 	mounted(){
-		console.log(this.inputText)
 		this.getSearch(this.inputText)
 		this.getGameLists()
 	},
+    watch:{
+
+    $route(){
+          this.inputText=this.$route.query.info;
+          this.getSearch(this.inputText)
+      }
+
+    },
+
 	methods:{
 		startGame:function(){
 			window.location.href=this.startUrl
@@ -68,7 +75,6 @@ export default{
         },
         // 向native交互传参 开始游戏
         callNative(softType,softName,softId,softDownLoadUrl,softIcon,softPackName,openUrl){
-        	console.log(1)
             //更多服务器
             let ts = this;
             let _port = "";

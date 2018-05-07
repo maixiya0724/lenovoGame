@@ -4,9 +4,9 @@
 	<div class="clearfix search">
 		<div class="searchMain">
 			<SearchTop></SearchTop>
-			<div  class="searchCenter">
-				<div v-if="flag">
-					<div  class="searchCenLeft" v-for="(item,index) in gameList">
+			<div  class="searchCenter clear">
+				<div v-if="flag" class="searchFloat">
+					<div  class="searchCenLeft" :class="index==0?'noPadding':''" v-for="(item,index) in gameList">
 						<div class="searchCengame">
 							<img :src="item.icon" class="gameImg" alt="游戏图片"/>
 							<div class="gameInfo">
@@ -21,7 +21,7 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="!flag" class="searchCenLeft">
+				<div v-if="!flag" class="searchFloat">
 					<h1>暂无游戏</h1>
 				</div>
 				<div class="searchCenRight">
@@ -33,11 +33,10 @@
 							<a @click="callNative(item.category1,item.elementName,item.gameElement.id,item.gameElement.downLoadUrl,item.gameElement.icon,item.gameElement.packageName,item.gameElement.gameUrl)" target="_blank" class="startGame">开始游戏</a>
 						</div>
 					</div>
-
-
-					
 				</div> 
 			</div>
+
+
 			
 		</div>
 	</div>

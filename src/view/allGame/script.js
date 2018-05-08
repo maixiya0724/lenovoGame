@@ -1,6 +1,5 @@
 import SearchTop from "../../components/searchTop.vue";
 import SearchTitle from "../../components/searchTitle.vue";
-import gameItem from "../../components/gameItem.vue"
 import page from "../../components/page.vue";
 import slider from "../../components/sliders.vue";
 import getGame from '@/api/getSearch'
@@ -11,7 +10,6 @@ import { jsCallNative } from "../../common/callnative"
 export default {
     components: {
         SearchTop: SearchTop,
-        gameItem: gameItem,
         page: page,
         slider: slider
     },
@@ -35,6 +33,12 @@ export default {
             current: 1,
             showItem: 5,
             allpage: 13,
+            flag:true,
+
+             token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QzAwQjE5OTQ1QTBENjFEMjFBMDQ3RTNFRUZFQjM2QUYxJmg9MTUyNTY4ODEzNDMxOCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25SQaOHJZQ0p025MiLRZoRp",
+            //进入游戏接口
+            gameurl:this.gmConf.domainHttps+"passport.4366.com",
+            softid:""
         }
     },
     mounted() {
@@ -101,7 +105,7 @@ export default {
 
             });
         },
-
+        
         // 点击游戏列表分类
         selectIndex(index, item) {
             $(".gameTitle a").removeClass("active")
@@ -168,7 +172,49 @@ export default {
             }
             return pag
         },
-        
+        //获取YYgame
+        getGameYY(gameId,callback){
+            var ts=this
+            console.log(gameId)
+            var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
+            var ts=this;
+            ts.jqajax(_url,{type:"get",dataType:"json"},function(res){
+                
+                ts.softBrowser = res.data.softkernel;
+                ts.softid=res.data.softId;//game值
+                //ts.gameStart(ts.softid);
+            });
+            return false
+        },
+         //开始游戏
+        gameStart(_sid){
+            var ts = this;
+            if(!_sid)return false;
+            var _url = ts.gameurl+"/channel/lenovo/gamecenter/login.do";
+            _url += "?game="+ts.softid;
+            _url += "&token="+ts.token;
+            _url += "&server="+_sid;
+            _url += "&failUrl="+encodeURIComponent(window.location.href);
+            console.log(_url,_sid);
+            ts.popVideo(_url);
+              window.location.href = _url;
+        },
+          //客户端弹窗
+        popVideo(_url){
+            var ts = this;
+            if(!_url || !ts.isLenovo())return;
+            if(!ts.isIe()){
+                callHostFunction.callBackVideo(_url,ts.softBrowser);
+            }else{
+                window.external.callBackVideo(_url,ts.softBrowser);
+            }
+
+        },
+         // 进入选择服务器页面
+        chooseSer(id){
+            console.log(id)
+            this.$router.push({path:"../service",qurey:{gameId:id}})
+        }
        
 
     }

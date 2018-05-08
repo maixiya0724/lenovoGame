@@ -54,6 +54,40 @@
             width: 100%;
             height: auto;
             overflow: hidden;
+            .searchNoGame{
+                .px2rem(width,1200);
+                .px2rem(height,650);
+                background: rgba(0,0,0,0.2);
+                .px2rem(margin-top,50);
+                .px2rem(margin-bottom,50);
+                float: left;
+                position: relative;
+                .noGame{
+                    .px2rem(width,360);
+                    .px2rem(height,240);
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    .noGameImg{
+                        .px2rem(width,244);
+                        .px2rem(height,173);
+                        background: url("../../../static/img/noGame.png");
+                        background-size: cover;
+                        margin: 0 auto;
+                    }
+                    p{
+                        width: 100%;
+                        color: #fff;
+                        .px2rem(margin-top,30);
+
+                    }
+
+                }
+            }
+
+
+
             .allGameMain {
                 .px2rem(width,
                 1300);
@@ -62,12 +96,111 @@
                 position: relative;
                 .px2rem(left,
                 -20);
+                .gameItem {
+                    .px2rem(width,
+                    270);
+                    .px2rem(height,
+                    270);
+                    float: left;
+                    .px2rem(margin-top,
+                    20);
+                    .px2rem(margin-left,
+                    20);
+                    .px2rem(margin-right,
+                    20);
+                    .px2rem(margin-bottom,
+                    20);
+                }
+
+                .itemImg {
+                    width: 100%;
+                    position: relative;
+                    .px2rem(height,
+                    210);
+                    img {
+                        width: 100%;
+                        .px2rem(height,
+                        210);
+                    }
+                    .itemStart {
+                        width: 100%;
+                        .px2rem(height,
+                        32);
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+
+                        background: rgba(0, 0, 0, 0.5);
+                        text-align: center;
+                        .px2rem(line-height,
+                        32);
+                        color: #f6f6f6;
+                        span,
+                        a {
+                            display: inline-block;
+                            .px2rem(font-size,
+                            16);
+                            float: left;
+                            color: #f6f6f6;
+                        }
+                        .gameIn {
+
+                            .px2rem(width,
+                            20);
+                            .px2rem(height,
+                            20);
+                            .px2rem(margin-top,
+                            6);
+                            .px2rem(margin-left,
+                            15);
+                            .px2rem(margin-right,
+                            10);
+                            background: url("../../../static/img/icon_gameIn.png");
+                            background-size: 100% 100%;
+                        }
+                        .gameC {
+                            .px2rem(margin-left,
+                            10);
+                            .px2rem(width,
+                            20);
+                            .px2rem(height,
+                            20);
+                            .px2rem(margin-top,
+                            6);
+                            .px2rem(margin-left,
+                            15);
+                            .px2rem(margin-right,
+                            10);
+                            background: url("../../../static/img/icon_gameC.png");
+                            background-size: 100% 100%;
+                            .px2rem(margin-left,
+                            60);
+                        }
+                    }
+                }
+                .itemName {
+                    .px2rem(width,
+                    270);
+                    .px2rem(height,
+                    55);
+                    .px2rem(font-size,
+                    18);
+                    .px2rem(line-height,
+                    55);
+                    .px2rem(text-indent,
+                    10);
+                    color: #f6f6f6;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    text-align: left;
+                    background: rgba(0, 0, 0, 0.5);
+                }
             }
         }
         .allGamePage {
             width: 100%;
             margin: 0 auto;
-            background: red;
             #page {
                 .px2rem(height,
                 40);

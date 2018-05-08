@@ -42,7 +42,7 @@
 			</div>
 			<div class="reGame">
 				<SearchTitle text="推荐游戏" imgUrl="../../../static/img/reImg.png"></SearchTitle>
-
+				<a class="moreGame" @click="moreGame">更多</a>
 				<div class="gameList">
 					<div class="gameListMain">
 					<div v-for="(item,index) in hotGame" class="gameItem">
@@ -50,10 +50,10 @@
 							<a :href="item.url">
 								<img :src="item.poster" alt=""/>
 							</a>
-							
+
 							<div class="itemStart">
 								<span class="gameIn"></span>
-								<a  @click="getGame(item.gameElement.id)">进入游戏</a>
+								<a  @click="getGameYY(item.gameElement.id)">进入游戏</a>
 								<span class="gameC"></span>
 								<a @click="goDetails(item.gameElement.id)">选服</a>
 							</div>
@@ -111,6 +111,7 @@
 					</div>
 
 					<div class="dataListR">
+						<a class="moreGame" @click="moreGame">更多</a>
 							<SearchTitle text="热门游戏" imgUrl="../../../static/img/hot.png"></SearchTitle>
 							<div class="imgList">
 								<div class="imgOver">
@@ -120,6 +121,7 @@
 								</div>
 							</div>
 							<div class="allGame">
+								<a class="moreGame" @click="moreGame">更多</a>
 								<div class="allGameTitle">
 									<a  @click="selectIndex(index,item)" :class="index===0?'active':''" v-for="(item,index) in gameCategory2" >{{item.cateName}}</a>
 								</div>

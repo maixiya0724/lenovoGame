@@ -4,8 +4,7 @@
     https://app.caizhanbao.cn/1524906254%281%29.png
     
  -->
-
-
+ 
 <template>
 	<div class="gameItem">
 		<div class="itemImg">

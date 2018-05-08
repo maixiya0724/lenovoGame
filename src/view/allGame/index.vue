@@ -8,10 +8,27 @@
 			<div class="gameTitle">
 				<a :class="index===0?'active':'' "  @click="selectIndex(index,item)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
 			</div>
-
 			<div class="allGameList clear">
-				<div class="allGameMain">
-					<gameItem :channelInfo="channelInfo" :gameItem="item" :ItemID="item.id" v-for="(item,index) in listGame" :key="index" :gameName="item.gameName" :imgUrl="item.bgUrl"></gameItem>
+                <div v-if="!flag" class="searchNoGame">
+                    <div class="noGame">
+                        <div class="noGameImg"></div>
+                        <p>"非常抱歉，没有找到您想要的内容"</p>
+                    </div>
+                </div>
+                
+				<div class="allGameMain" v-if="flag">
+                        <div class="gameItem" v-for="(item,index) in listGame">
+                            <div class="itemImg">
+                                <a   @click="getGameYY(item.id)"><img v-bind:src="item.bgUrl" alt=""/></a>
+                                <div class="itemStart">
+                                    <span class="gameIn"></span>
+                                    <a @click="getGameYY(item.id)">进入游戏</a>
+                                    <span class="gameC"></span>
+                                    <a @click="chooseSer(item.id)">选服</a>
+                                </div>
+                            </div>
+                            <div class="itemName">{{item.gameName}}</div>
+                        </div>  
 				</div>
 			</div>
             <div class="allGamePage">

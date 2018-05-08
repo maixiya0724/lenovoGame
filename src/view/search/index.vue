@@ -21,8 +21,11 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="!flag" class="searchFloat">
-					<h1>暂无游戏</h1>
+				<div v-if="!flag" class="searchNoGame">
+					<div class="noGame">
+						<div class="noGameImg"></div>
+						<p>"非常抱歉，没有找到您想要的内容"</p>
+					</div>
 				</div>
 				<div class="searchCenRight">
 					<SearchTitle  text="游戏截图" imgUrl="../../../static/img/search_hot_game.png"></SearchTitle>

@@ -10,7 +10,9 @@
 					<SearchTitle text="用户信息" imgUrl="../../../static/img/search_user.png"></SearchTitle>
 					<div class="userInfo">
 
+
 						<div class="info">欢迎您 , {{userInfo.name}}</div> <div class="data">您玩过的区服 : <a v-for="(item,index) in playLatests" @click="gameStart(item.serverId)">{{item.serverName}}</a></div>
+
 					</div>
 					<SearchTitle text="服务器列表" imgUrl="../../../static/img/search_data.png"></SearchTitle>
 					<div class="dataSev">
@@ -26,7 +28,6 @@
 								
 							</div>
 							<button class="btn">进入游戏</button>
-
 						</div>
 						<div class="changeSev">
 								

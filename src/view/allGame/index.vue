@@ -9,6 +9,7 @@
 				<a :class="index===0?'active':'' "  @click="selectIndex(index,item)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
 			</div>
 			<div class="allGameList clear">
+
                 <div v-if="!flag" class="searchNoGame">
                     <div class="noGame">
                         <div class="noGameImg"></div>
@@ -17,6 +18,7 @@
                 </div>
                 
 				<div class="allGameMain" v-if="flag">
+
                         <div class="gameItem" v-for="(item,index) in listGame">
                             <div class="itemImg">
                                 <a   @click="getGameYY(item.id)"><img v-bind:src="item.bgUrl" alt=""/></a>

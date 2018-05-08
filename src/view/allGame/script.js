@@ -33,7 +33,10 @@ export default {
             current: 1,
             showItem: 5,
             allpage: 13,
+<<<<<<< HEAD
             flag:true,
+=======
+>>>>>>> fc731069848d607fe1c6a8f7207a38620d16446a
 
              token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QzAwQjE5OTQ1QTBENjFEMjFBMDQ3RTNFRUZFQjM2QUYxJmg9MTUyNTY4ODEzNDMxOCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25SQaOHJZQ0p025MiLRZoRp",
             //进入游戏接口
@@ -179,12 +182,20 @@ export default {
             var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
             var ts=this;
             ts.jqajax(_url,{type:"get",dataType:"json"},function(res){
+<<<<<<< HEAD
                 
                 ts.softBrowser = res.data.softkernel;
                 ts.softid=res.data.softId;//game值
                 //ts.gameStart(ts.softid);
             });
             return false
+=======
+               
+                ts.softBrowser = res.data.softkernel;
+                ts.softid=res.data.softId;//game值
+                ts.gameStart(ts.softid);
+            });
+>>>>>>> fc731069848d607fe1c6a8f7207a38620d16446a
         },
          //开始游戏
         gameStart(_sid){
@@ -197,6 +208,10 @@ export default {
             _url += "&failUrl="+encodeURIComponent(window.location.href);
             console.log(_url,_sid);
             ts.popVideo(_url);
+<<<<<<< HEAD
+=======
+            
+>>>>>>> fc731069848d607fe1c6a8f7207a38620d16446a
               window.location.href = _url;
         },
           //客户端弹窗

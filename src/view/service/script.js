@@ -4,6 +4,7 @@ import selectData from "../../components/selectData.vue"
 import getAwardDetail from '@/api/award/award-add'
 
 
+
 export default {
     components: {
         SearchTop: SearchTop,
@@ -102,6 +103,7 @@ export default {
         },
 
         getInfo(cbk) { // 获取游戏简介的图片
+
             getAwardDetail.getAwardDetail(this.gameId).then((res) => {
                 console.log(res)
                 $(window).scrollTop(0)

@@ -12,6 +12,7 @@
         1200);
         .px2rem(height,
         1910);
+        position: relative;
         margin: 0 auto;
         .slideShow {
             width: 100%;
@@ -111,6 +112,10 @@
                     .px2rem(margin-bottom,
                     20);
                 }
+                .gameItem:hover .itemImg .gameIn{
+                        background: url("../../../static/img/hover.png");
+                        background-size: 100% 100%;
+                    }
 
                 .itemImg {
                     width: 100%;
@@ -205,6 +210,8 @@
                 .px2rem(height,
                 40);
                 margin: 0 auto;
+                position: absolute;
+                .px2rem(top,1900);
 
                 .pagination li {
                     .px2rem(width,

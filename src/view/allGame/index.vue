@@ -3,7 +3,7 @@
 		<div class="allGameMian">
 			<SearchTop></SearchTop>
 			<div class="slideShow">
-				<slider v-bind:sliderList="banners"></slider>
+				<slider  v-bind:sliderList="banners"></slider>
 			</div>
 			<div class="gameTitle">
 				<a :class="index===0?'active':'' "  @click="selectIndex(index,item)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
@@ -16,7 +16,7 @@
                         <p>"非常抱歉，没有找到您想要的内容"</p>
                     </div>
                 </div>
-                
+
 				<div class="allGameMain" v-if="flag">
 
                         <div class="gameItem" v-for="(item,index) in listGame">
@@ -26,7 +26,7 @@
                                     <span class="gameIn"></span>
                                     <a @click="getGameYY(item.id)">进入游戏</a>
                                     <span class="gameC"></span>
-                                    <a @click="chooseSer(item.id)">选服</a>
+                                    <a @click="goDetails(item.id,item.serviceImg)">选服</a>
                                 </div>
                             </div>
                             <div class="itemName">{{item.gameName}}</div>

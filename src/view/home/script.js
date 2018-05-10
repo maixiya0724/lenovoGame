@@ -17,6 +17,7 @@ export default {
 
     data() {
         return {
+
             // 轮播图的图片
             sliderList: [],
             // 推荐游戏的图片
@@ -25,6 +26,11 @@ export default {
             listGame: [],
             hotGame: [],
             banners: [],
+            userId: '10114895506',
+            //YY签名以及时间戳
+            signs: '',
+            timestamp: '',
+            playLatests:'',
             gameCategory1: [],
             gameCategory2: [],
             category1: '',
@@ -32,7 +38,7 @@ export default {
             softid:"",
             subCategoryIndex: 0,
             categoryIndex: 0,
-            token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QzAwQjE5OTQ1QTBENjFEMjFBMDQ3RTNFRUZFQjM2QUYxJmg9MTUyNTY4ODEzNDMxOCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25SQaOHJZQ0p025MiLRZoRp",
+            token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9MjlEQkM0OTg1NkFGMDFBRkY4MEIwMTQ4QUZDRkY2QkUxJmg9MTUyNTkyNDM5MjQyMyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y27exiyuXbDV0p1dSDLy-jx6",
             channelInfo: {}, // 频道ID
             //进入游戏接口
             gameurl:this.gmConf.domainHttps+"passport.4366.com",
@@ -43,7 +49,7 @@ export default {
         this.getGameLists()
         this.getGameTitle()
         this.getLoginToken()
-        console.log(this.gameId)
+        this.getSign(this.userId)
     },
     methods: {
          //获取用户登录信息
@@ -78,16 +84,28 @@ export default {
              
 
         },
+        mustLogin:function(){// 点击开始登陆
+
+        },
+        showStartGame:function(index,ev){ // 服务器轮播图显示进入游戏
+            
+            $(".allDataSub li .three")[index].style.display="none"
+            $(".allDataSub li .startGame")[index].style.display="block"
+        },
+        hideStartGame:function(){
+            $(".allDataSub li .three").show()
+            $(".allDataSub li .startGame").hide()
+        },
 
         sliderInit: function() { // 轮播图初始化
             $('.carousel').carousel({
                 interval: 2000,
-
             })
         },
 
-     
+    
 
+    
         getGameLists() { // 得到banner和服务器列表轮播图的数据
             // 接口地址在serviceUrl里
             getAwardDetail.getAwardDetail(98).then((res) => {
@@ -102,6 +120,7 @@ export default {
                 this.goodGame = res.data.channels[0].modules[2].elements;
                 //  页游精品游戏开服表
                 this.goodGameRank = res.data.channels[0].modules[3].elements;
+                console.log( this.goodGameRank)
                 var goodGameRankList = Math.ceil(this.goodGameRank.length / 10)
                 //处理goodGameRankList
                 for (var i = 0; i < goodGameRankList; i++) {
@@ -111,6 +130,7 @@ export default {
                 this.cont = res.data.channels[0].modules[4].elements;
                 // 热门游戏
                 this.hotGame = res.data.channels[0].modules[5].elements.slice(0, 4);
+                console.log(this.hotGame)
 
             })
         },
@@ -149,7 +169,11 @@ export default {
                         for (let i = 0; i < this.listGame[j].captureFiles.length; i++) {
                             if (this.listGame[j].captureFiles[i].size == '235*132') {
                                 this.listGame[j].bgUrl = this.listGame[j].captureFiles[i].url
-                            } else {}
+                            }
+                            if (this.listGame[j].captureFiles[i].size == '235*132') {
+                                this.listGame[j].serviceImg = this.listGame[j].captureFiles[i].url
+                                
+                            }
                         }
                     }
                 }
@@ -157,21 +181,56 @@ export default {
         },
       
         goDetails(Id){ // 选择服务器
-        	this.$router.push({})
+        	this.$router.push({path:"../service",query:{gameId:Id}})
         },
         //获取YYgame
-        getGameYY(gameId,callback){
+        getGameYY(gameId,clk){
             var ts=this
             console.log(gameId)
             var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
+
             var ts=this;
             ts.jqajax(_url,{type:"get",dataType:"json"},function(res){
-               
+                console.log(res)
                 ts.softBrowser = res.data.softkernel;
                 ts.softid=res.data.softId;//game值
-                ts.gameStart(ts.softid);
+                    ts.gameStart(ts.softid);
             });
         },
+
+
+          //获取yy签名以及当前时间戳
+        getSign(userId) {
+            var _url = "/back/game/api/user/md5UserId?" + "&userId=" + userId;
+            var ts = this;
+            ts.jqajax(_url, { type: "get", dataType: "json" }, function(res) {
+                ts.signs = res.data.out;
+                ts.timestamp = res.data.timestamp;
+                //获得以前玩的游戏
+                ts.playAllLatest( ts.signs, ts.timestamp, ts.userId);
+            });
+        },
+
+         
+         //获取用户最近在玩的
+        playAllLatest(sign, timestamp, userId) {// 最近在玩的所有游戏
+            var ts = this;
+            // &serverType=GENERAL
+            var url = this.gmConf.domainHttps + "unionlogin.4366.com/lenovo/gamecenter/recently.do?jsonp&"+ "&sign=" + sign + "&timestamp=" + timestamp + "&userId=" + userId;
+            console.log(url)
+            this.jqajax(url, { type: "get", dataType: "jsonp" }, (res) => {
+                console.log(res)
+                //  ts.errorShow(url+"<br>"+JSON.stringify(res));
+                $(".service-specific-container div").eq(0).remove();
+                if(res.data.length>5){
+                    ts.playLatests = res.data.slice(0,4);
+                }else{
+                    ts.playLatests = res.data
+                }
+                console.log(ts.playLatests)
+            })
+        },
+
          //开始游戏
         gameStart(_sid){
             var ts = this;
@@ -184,9 +243,15 @@ export default {
             console.log(_url,_sid);
             ts.popVideo(_url);
             
-              window.location.href = _url;
+              window.open(_url);
         },
-          //客户端弹窗
+        myStartGame:function(game,server){// 我之前玩过的游戏快速进入游戏
+
+          let url ="http://passport.4366.com/channel/lenovo/gamecenter/login.do?token="+this.token+"&game="+game+"&server="+server+"&failUrl="+encodeURIComponent(window.location.href);
+          
+          window.open( url)
+        },
+        //客户端弹窗
         popVideo(_url){
             var ts = this;
             if(!_url || !ts.isLenovo())return;

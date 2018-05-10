@@ -15,6 +15,9 @@ export default{
 				gameList:[],//搜索到的游戏数组
 				flag:false,//搜索结果
 				hotGame:[],// 热门推荐
+                gameurl:this.gmConf.domainHttps+"passport.4366.com",
+                token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9MjlEQkM0OTg1NkFGMDFBRkY4MEIwMTQ4QUZDRkY2QkUxJmg9MTUyNTkyNDM5MjQyMyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y27exiyuXbDV0p1dSDLy-jx6",
+
 			} 
 	},
 	mounted(){
@@ -31,9 +34,7 @@ export default{
     },
 
 	methods:{
-		startGame:function(){
-			window.location.href=this.startUrl
-		},
+		
 		// 页面执行请求搜索数据
         getSearch(info){
             getGame.getSearch(info,'','').then((res) => {
@@ -61,6 +62,34 @@ export default{
                 }
             })
         },
+        //获取YYgame
+        getGameYY(gameId){
+            var ts=this
+            console.log(gameId)
+            var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
+            var ts=this;
+            ts.jqajax(_url,{type:"get",dataType:"json"},function(res){
+
+                
+                ts.softBrowser = res.data.softkernel;
+                ts.softid=res.data.softId;//game值
+                ts.gameStart(ts.softid);
+            });
+
+        },
+         //开始游戏
+        gameStart(_sid){
+            var ts = this;
+            if(!_sid)return false;
+            var _url = ts.gameurl+"/channel/lenovo/gamecenter/login.do";
+            _url += "?game="+ts.softid;
+            _url += "&token="+ts.token;
+            _url += "&server="+_sid;
+            _url += "&failUrl="+encodeURIComponent(window.location.href);
+            console.log(_url,_sid);
+           
+             // window.location.href = _url;
+        },
         //请求游戏数据
         getGameLists () {
             // 接口地址在serviceUrl里
@@ -68,40 +97,10 @@ export default{
             	console.log(res.data)
                 // 热门游戏
                 this.hotGame = res.data.channels[0].modules[5].elements.slice(0,4);
-
                 console.log(this.hotGame)
-                
             })
         },
-        // 向native交互传参 开始游戏
-        callNative(softType,softName,softId,softDownLoadUrl,softIcon,softPackName,openUrl){
-            //更多服务器
-            let ts = this;
-            let _port = "";
-            if(window.location.port!=""){
-                _port = ":"+window.location.port;
-            }
-            let _url = window.location.protocol+"//"+window.location.hostname+_port+"/#/servicepage?gameid="+softId;
-            let params = {
-                gameName:softName,
-                gameId:softId,
-                iconUrl:softIcon,
-                packageName:softPackName,
-                downLoadUrl:softDownLoadUrl,
-                openUrl:_url,
-                webUrl:this.webUrl,
-                browser:ts.isIe()?"ie":"chrome",
-            };
-            let _getUrl="/back/game/get/game/soft/data?softName=yy"+"&gameId="+softId;
-            ts.jqajax(_getUrl,{type:"get",dataType:"json"},function(res){
-                //console.log('game',res.data);
-                if(!ts.isLenovo()){
-                    return;
-                }
-                let softBrowser = res.data.softkernel;
-                jsCallNative(softType,params,softBrowser);
-            });
-        },
+        
 	}
 	
 }

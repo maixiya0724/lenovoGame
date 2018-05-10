@@ -17,9 +17,10 @@ export default {
         return {
             userInfo: { name: "啦啦啦", newData: "20" },
             //gameId: this.$route.query.gameId,
-            gameId: 210557,
+            gameId:this.$route.query.gameId,
+            imgUrl:this.$route.query.imgUrl,
             //获取用户信息
-            token: 'ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9NTFGRkFGMTkzMjZCQzI1RDBFNTNBMkFCQzVEQjMyNTcxJmg9MTUyNDY1MDczMzA5NyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y244SJ0GvgxHu_IpcGRetvHX',
+            token: 'ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9MzlGQzA4NjBDODU0MUNGQkIyMTBGM0RFQjU4NzAwMUYxJmg9MTUyNTkxOTgxNDc2MCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y24foAmsN2Uv-_T0vOc5z_ye',
             userId: '10114895506',
             //YY签名以及时间戳
             signs: '',
@@ -55,40 +56,23 @@ export default {
             softBrowser: 'chrome', //浏览器类型
         }
     },
+    
     mounted() {
-
-        var ts = this;
-        if (typeof ts.$route.query.errorMessage != "undefined" && ts.$route.query.errorMessage != "") {
-            alert(ts.$route.query.errorMessage);
-        };
-
-        //开始页面上报
-        //   this.getTimes();
-        // alert(this.gameId);
         //获取用户信息
         this.getLoginToken();
         //获取YY游戏标识game值
         this.getGame(this.gameId);
-
-        this.loading = true;
-        this.winSrcoll();
-        //获取区服号
-        this.getServerNumber(this.softid);
-
         //获取YY签名以及时间戳
         this.getSign(this.userId);
+        // 获取游戏的简介 
+        this.getInfo()
+
+        console.log(this.imgUrl)
     },
 
     methods: {
-        chooseData: function(event) {
-            console.log(event.target) // 选择当前的DOM结构
-
-            $(event.target).toggleClass("active")
-        },
-        getTimes() { // 时间戳
-            this.enterTime = +new Date();
-        },
-      
+       
+       
         //获取YYgame
         getGame(gameId, callback) {
             var _url = "/back/game/get/game/soft/data?softName=yy" + "&gameId=" + gameId;
@@ -106,7 +90,7 @@ export default {
 
             getAwardDetail.getAwardDetail(this.gameId).then((res) => {
                 console.log(res)
-                $(window).scrollTop(0)
+                
                 this.result = res.data.data;
                 this.banners = res.data.data.captureFiles;
                 for (var i = 0; i < this.banners.length; i++) {
@@ -120,46 +104,9 @@ export default {
 
             })
         },
-        //区服列表点击事件上报
-        sendReport(options) {
-            options.cpId = '01';
-            options.reportType = 'event';
-            options.eventDes = ' 列表页面选服';
-            console.log(options);
-            if (!this.isLenovo()) { return; }
-            if (!this.isIe()) {
-                callHostFunction.findComputerInfo(callback(options)); //调用客户端方法获取信息 chrome
-            } else {
-                let _data = window.external.findComputerInfoIE(); //IE
-                callback(options, _data);
-            }
-
-            //  alert('新闻页点击事件上报');
-            // callback(options)//测试数据上报是否成功
-        },
-        getTimes() {
-            this.enterTime = +new Date();
-            //进入页面上报
-            const options = {
-                pageId: '109',
-                gameId: this.gameId,
-                inOut: '01',
-            };
-            //开始页面上报
-            this.pageSendStart(options)
-        },
-        //区服列表页面上报
-        pageSendStart(options) {
-            options.cpId = '01';
-            options.reportType = 'page';
-            if (!this.isLenovo()) { return; }
-            if (!this.isIe()) {
-                callHostFunction.findComputerInfo(callback(options)); //调用客户端方法获取信息,chrome
-            }
-
-            // callback(options)//测试数据上报是否成功
-            // alert('页面上报开始')
-        },
+        
+       
+       
         getUrlParam(par) {
             //获取当前URL
             var local_url = document.location.href;
@@ -215,22 +162,9 @@ export default {
             }
 
         },
-        //获取区服号
-        getServerNumber(game) {
-            $(window).scrollTop(0);
-            var ts = this;
-            var url = this.gmConf.domainHttps + "unionlogin.4366.com/lenovo/gamecenter/gslist.do?jsonp&serverType=GENERAL" + "&game=" + game;
-            this.jqajax(url, {}, (res) => {
-                var _servers = res[ts.softid].servers;
-                for (var item in _servers) {
-                    ts.serverNumber.push(_servers[item].id)
-                };
-                console.log('区服号数组', ts.serverNumber)
-            });
-        },
+       
      
         getAllServer(game, gsPageNo) {
-            $(window).scrollTop(0);
             var ts = this;
             var gsPageNo = gsPageNo ? gsPageNo : "1";
             ts.loading = true;
@@ -243,65 +177,24 @@ export default {
                 for (var item in _servers) {
                     ts.allServices.servers.push(_servers[item]);
                 }
-                if (ts.allServices.servers.length < 60) {
-                    ts.loadingText = '已无更多区服信息'
+                if (ts.allServices.servers.length > 3) {
+                    ts.allServices.servers=ts.allServices.servers.slice(0,5)
                 }
                 console.log('循环之后的结果数组', ts.allServices.servers)
                 console.log('长度', ts.allServices.servers.length)
-                ts.gsPageNo++;
+               
             });
+
                 this.getNewInfo(this.softid)
 
         },
-        getSecond(game, gsPageNo) {
-            var ts = this;
-            var gsPageNo = gsPageNo ? gsPageNo : "1";
-            ts.loading = true;
-            var url = this.gmConf.domainHttps + "unionlogin.4366.com/lenovo/gamecenter/gslist.do?jsonp&serverType=GENERAL&gsPageSize=60&online" + "&game=" + game + "&gsPageNo=" + gsPageNo;
-            this.jqajax(url, {}, (res) => {
-                ts.loading = false;
-                var _servers = res[ts.softid].servers;
-                if (JSON.stringify(_servers) == "{}") {
-                    ts.loadingText = '已无更多区服';
-                    console.log(111);
-                    ts.fst = false;
-                    return false;
-                } else {
-                    for (var item in _servers) {
-                        ts.result.push(_servers[item]);
-                    }
-                    console.log('新数组', ts.result)
-                    console.log('result类型', ts.result.length);
-                    // console.log('第二个servers', ts.allServices.servers)
-                    ts.allServices.servers = ts.allServices.servers.concat(ts.result);
-                    ts.result.length = 0;
-                }
-                console.log('结果', ts.allServices.servers);
 
-            });
-            ts.gsPageNo++;
-        },
-        winSrcoll() {
-            var ts = this;
-            $(window).scroll(function() {
-                if (ts.fst) {
-                    var scrollTop = $(this).scrollTop() //滑动的距离
-                    var scrollHeight = $(document).height() //文本的高度
-                    var windowHeight = $(this).height() //可视窗口的高度
-                    if (scrollHeight - windowHeight - scrollTop <= 50 && !ts.loading) {
-                        console.log('ajax &&');
-                        ts.getSecond(ts.softid, ts.gsPageNo);
-                    }
-                }
-            });
-        },
         getNewInfo(game) {
             var ts = this;
             var url = this.gmConf.domainHttps + "unionlogin.4366.com/lenovo/gamecenter/gslist.do?jsonp&serverType=GENERAL&order=opentime:desc&gsPageNo=1&gsPageSize=20&online" + "&game=" + game;
             ts.jqajax(url, {}, (res) => {
                 console.log('最新区服信息', res);
                
-
                 var _servers = res[ts.softid].servers;
                  for (var item in _servers) {
                     ts.latest.servers.push(_servers[item]);
@@ -326,11 +219,12 @@ export default {
         //进入游戏
         enterGame() {
             //获取用户输入的区服号
-            var words = this.$refs.game.value;
+            var words = this.$refs.inputData.value;
             //console.log(words);
             if (words && words != "") {
                 if (/^\+?[1-9][0-9]*$/.test(words)) {
-                    this.inputText = 's' + this.$refs.game.value;
+                    this.inputText = 's' + this.$refs.inputData.value;
+                    console.log(this.inputText)
                     this.gameStart(this.inputText);
                 } else {
                     this.$toast.top('请输入数字格式的区服号');
@@ -342,15 +236,7 @@ export default {
             //      this.ifEnter==true
             // }
         },
-        contains(arr, obj) {
-            var i = arr.length;
-            while (i--) {
-                if (arr[i] === obj) {
-                    return true;
-                }
-            }
-            return false;
-        },
+       
         //获取用户最近在玩的
         playLatest(game, sign, timestamp, userId) {
             var ts = this;
@@ -360,7 +246,14 @@ export default {
                 console.log(res.data)
                 //  ts.errorShow(url+"<br>"+JSON.stringify(res));
                 $(".service-specific-container div").eq(0).remove();
-                ts.playLatests = res.data;
+                if(res.data.length>4){
+                    ts.playLatests = res.data.slice(0,3);
+                }else{
+                    ts.playLatests = res.data.slice(0,3);
+
+                }
+                
+
             })
         },
 
@@ -383,7 +276,7 @@ export default {
                 gameId: this.gameId,
                 serviceId: _sid //每一个区服id
             };
-            ts.sendReport(options);
+            window.location.href=_url;
         },
         //客户端弹窗
         popVideo(_url) {

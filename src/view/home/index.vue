@@ -9,7 +9,7 @@
 					<div class="userTitle">
 						<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
 					</div>
-					<a class="goLogin">立即登录</a>
+					<a class="goLogin" @click="mustLogin">立即登录</a>
 					<p>登录以后显示您的游戏内容</p>
 				</div>
 				<div  class="centerTopL">
@@ -25,14 +25,12 @@
 						<div class="myGameList">
 							<div class="title">我的游戏</div>
 							<div class="dataList">
-								<a class="dataItem">
-									<div class="itemName">游戏名称七个字</div>
-									<div class="itemNum">909服</div>
-									<div class="itemStart">进入游戏</div>
+								<a class="dataItem" v-for="(item,index) in playLatests">
+									<div class="itemName">{{item.gameName}}</div>
+									<div class="itemNum">{{item.serverName}}</div>
+									<div class="itemStart" @click="myStartGame(item.gameAb,item.serverId)">进入游戏</div>
 								</a>
-
 							</div>
-					
 						</div>
 					</div>
 				<div  class="centerTopR">
@@ -48,7 +46,7 @@
 					<div v-for="(item,index) in hotGame" class="gameItem">
 						<div class="itemImg">
 							<a :href="item.url">
-								<img :src="item.poster" alt=""/>
+								<img :src="item.poster" @click="getGameYY(item.gameElement.id)" alt=""/>
 							</a>
 
 							<div class="itemStart">
@@ -75,7 +73,7 @@
 									<div class="two">开服区</div>
 									<div class="three">日期</div>
 								</div>
-								
+
 								<div class="swiperList">
 									<!-- 轮播图 -->
 									<div  class="slider">
@@ -88,11 +86,13 @@
 	      										  <div class="carousel-inner">
 	      										    <div  class=" item" :class="{active:index===0}"  v-for="(item,index) in sliderList" >
 	      										    	<ul class="allData">
-	      										    		<a v-for="(items,index) in goodGameRank" href="#">
-	      										    			<li >
+	      										    		<a class="allDataSub" @mouseout="hideStartGame(index)" @mouseover="showStartGame(index,$event)" v-for="(items,index) in goodGameRank" href="#">
+	      										    			<li>
 					      											<div class="one">{{items.elementName}}</div>
 																	<div class="two">{{items.subTitle}}</div>
-																	<div class="three">{{items.subTitleLink}}</div>
+																	<div  class="three">{{items.subTitleLink}}</div>
+																	<div @click="getGameYY(items.gameElement.id
+)" style="color:#fff;" class="startGame">进入游戏</div>
 					      										</li>
 	      										    		</a>
 				      										
@@ -113,9 +113,10 @@
 					<div class="dataListR">
 						<a class="moreGame" @click="moreGame">更多</a>
 							<SearchTitle text="热门游戏" imgUrl="../../../static/img/hot.png"></SearchTitle>
+
 							<div class="imgList">
 								<div class="imgOver">
-									<a class="imgListItem" href="#" v-for="(item,index) in goodGame">
+									<a class="imgListItem" @click="getGameYY(item.gameElement.id)"  href="#" v-for="(item,index) in goodGame">
 										<img :src="item.poster" alt="游戏图片"/>
 									</a>
 								</div>
@@ -129,7 +130,10 @@
 									<div class="gameIconMove">
 										<div class="gameIconItem" v-for="(item,index) in listGame">
 											<div class="iconImg">
-												<img :src="item.bgUrl" alt="游戏图标"/>
+												<a>
+												<img @click="getGameYY(item.id)" :src="item.icon" alt="游戏图标"/>
+													
+												</a>
 											</div>
 											<p>{{item.gameName}}</p>
 										</div>

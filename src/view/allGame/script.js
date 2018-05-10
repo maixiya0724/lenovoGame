@@ -15,7 +15,7 @@ export default {
     },
     data() {
         return {
-            sliderList: [{ url: "http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg", index: 1, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg", index: 2, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg", index: 3, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg", index: 4, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/call_of_duty_advanced_warfare-007.jpg", index: 1, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue.jpg", index: 2, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-001.jpg", index: 3, name: "英雄联盟" }, { url: "http://img.ivsky.com/img/bizhi/pre/201411/06/assassin_s_creed_rogue-003.jpg", index: 4, name: "英雄联盟" }],
+            
             gameType: [],
             banners: [],
             list: [],
@@ -33,12 +33,8 @@ export default {
             current: 1,
             showItem: 5,
             allpage: 13,
-<<<<<<< HEAD
             flag:true,
-=======
->>>>>>> fc731069848d607fe1c6a8f7207a38620d16446a
-
-             token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QzAwQjE5OTQ1QTBENjFEMjFBMDQ3RTNFRUZFQjM2QUYxJmg9MTUyNTY4ODEzNDMxOCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25SQaOHJZQ0p025MiLRZoRp",
+             token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9NkQwMTQ1RDMyNDQyM0FEMkFERTY4MEMzNTU5MTMxQ0UxJmg9MTUyNTk0OTIyMzYzNyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25lzUttbAqG1Uyf5XsNO10h",
             //进入游戏接口
             gameurl:this.gmConf.domainHttps+"passport.4366.com",
             softid:""
@@ -48,6 +44,7 @@ export default {
         this.getGameLists()
         this.getGameTitle()
     },
+
     computed: {
         pages: {
             get: function() {
@@ -68,7 +65,7 @@ export default {
                         pag.push(middle++);
                     }
                 }
-
+                
                 return pag
             },
             set: function(newValue) { //如果不写计算属性的set，vue会报错
@@ -91,7 +88,7 @@ export default {
                 // 频道信息
                 this.channelInfo.id = res.data.channels[0].id;
                 this.channelInfo.name = res.data.channels[0].channelName;
-
+                console.log(this.banners)
                 // console.log(this.goodGame)
             })
         },
@@ -121,6 +118,9 @@ export default {
         async getGame() {
             // console.log(this.category1,this.category2);
             getGame.getSearch('', this.category1, this.category2).then((res) => {
+                if(!res.data.datas){
+                    this.flag=false;
+                }
                 this.listGame = res.data.datas.slice(0, 16)
                 // console.log(this.listGame)       
                 console.log(this.listGame)
@@ -132,23 +132,22 @@ export default {
                         for (let i = 0; i < this.listGame[j].captureFiles.length; i++) {
                             if (this.listGame[j].captureFiles[i].size == '235*132') {
                                 this.listGame[j].bgUrl = this.listGame[j].captureFiles[i].url
-                            } else {}
+                                
+                            }
+                            if (this.listGame[j].captureFiles[i].size == '235*132') {
+                                this.listGame[j].serviceImg = this.listGame[j].captureFiles[i].url
+                            }
+
                         }
                     }
                 }
+                console.log(this.listGame)
             })
         },
-        // 跳转详情页路由传参
-        goDetails(name, channelId, id) {
-            const options = {
-                eventId: '003',
-                eventDes: '查看游戏详情',
-                gameId: id
-            }
-            this.$router.push({ name: 'gamedetail', query: { name: name, channelId: channelId, id: id, pageId: '101' } });
-            this.sendEventInfo(options)
+        goDetails(Id,img){ // 选择服务器
+            this.$router.push({path:"../service",query:{gameId:Id,imgUrl:img}})
         },
-
+        
         //分页
         goto: function(index) {
             if (index == this.current) return;
@@ -182,20 +181,13 @@ export default {
             var _url="/back/game/get/game/soft/data?softName=yy"+"&gameId="+gameId;
             var ts=this;
             ts.jqajax(_url,{type:"get",dataType:"json"},function(res){
-<<<<<<< HEAD
+
                 
-                ts.softBrowser = res.data.softkernel;
-                ts.softid=res.data.softId;//game值
-                //ts.gameStart(ts.softid);
-            });
-            return false
-=======
-               
                 ts.softBrowser = res.data.softkernel;
                 ts.softid=res.data.softId;//game值
                 ts.gameStart(ts.softid);
             });
->>>>>>> fc731069848d607fe1c6a8f7207a38620d16446a
+
         },
          //开始游戏
         gameStart(_sid){
@@ -208,11 +200,7 @@ export default {
             _url += "&failUrl="+encodeURIComponent(window.location.href);
             console.log(_url,_sid);
             ts.popVideo(_url);
-<<<<<<< HEAD
-=======
-            
->>>>>>> fc731069848d607fe1c6a8f7207a38620d16446a
-              window.location.href = _url;
+              window.open(_url) 
         },
           //客户端弹窗
         popVideo(_url){

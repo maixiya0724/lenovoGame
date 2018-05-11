@@ -9,7 +9,6 @@
 				<a :class="index===0?'active':'' "  @click="selectIndex(index,item)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
 			</div>
 			<div class="allGameList clear">
-
                 <div v-if="!flag" class="searchNoGame">
                     <div class="noGame">
                         <div class="noGameImg"></div>
@@ -33,16 +32,16 @@
                         </div>  
 				</div>
 			</div>
-            <div class="allGamePage">
+            <div class="allGamePage"  v-if="flag">
                     <div id="page">
                         <ul class="pagination">
-                            <li v-show="current != 1" @click="current-- && goto(current)" ><a class="next">上一页</a></li>
+                            <li v-show="current != 1" @click="current-- && goto(current--)" ><a class="next">上一页</a></li>
                             <li v-for="index in pages" @click="goto(index)" :key="index">
                               <a :class="{'active':current == index}"  href="#" >{{index}}</a>
                             </li>
                             <li  v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a class="next" href="#" >下一页</a></li>
                             <span class="allPage">共{{pages.length}}页</span>
-                            <div class="jumpPage"><span>到第</span><input class="pageNum" value="1" /> <label>页</label> <input type="button" class="btnPage" value="确定"></div>
+                            <div class="jumpPage"><span>到第</span><input class="pageNum"  v-model="gotoInput"  /> <label>页</label> <input type="button"  @click="goto(gotoInput)" class="btnPage" value="确定"/></div>
                         </ul>
                     </div>
             </div>

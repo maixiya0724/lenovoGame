@@ -12,7 +12,6 @@ export default {
         selectData: selectData
     },
 
-
     data() {
         return {
             userInfo: { name: "啦啦啦", newData: "20" },
@@ -20,7 +19,7 @@ export default {
             gameId:this.$route.query.gameId,
             imgUrl:this.$route.query.imgUrl,
             //获取用户信息
-            token: 'ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9MzlGQzA4NjBDODU0MUNGQkIyMTBGM0RFQjU4NzAwMUYxJmg9MTUyNTkxOTgxNDc2MCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y24foAmsN2Uv-_T0vOc5z_ye',
+            token: 'ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9REQ0RDkwQTBCRUMzQzk4NUJENDI5NjU5M0FBREY3NTExJmg9MTUyNjAyMDMyNTUwMSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26-Kfd85C9BOZ0SpNjrq4My',
             userId: '10114895506',
             //YY签名以及时间戳
             signs: '',
@@ -86,27 +85,6 @@ export default {
             });
         },
 
-        getInfo(cbk) { // 获取游戏简介的图片
-
-            getAwardDetail.getAwardDetail(this.gameId).then((res) => {
-                console.log(res)
-                
-                this.result = res.data.data;
-                this.banners = res.data.data.captureFiles;
-                for (var i = 0; i < this.banners.length; i++) {
-                    this.bgSize.push(this.banners[i].size);
-                    if (this.bgSize[i] == '660*290') {
-                        this.Banners.push(this.banners[i].url)
-                    } else {
-                        //this.bgBanners.push(bg.url)
-                    }
-                }
-
-            })
-        },
-        
-       
-       
         getUrlParam(par) {
             //获取当前URL
             var local_url = document.location.href;

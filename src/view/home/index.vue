@@ -5,21 +5,21 @@
 		<div class="gameLogoutMain">
 			<SearchTop></SearchTop>
 				<div class="centerTop">
-					<div v-if="false"  class="centerTopL">
+					<div v-if="!isLogin"  class="centerTopL">
 					<div class="userTitle">
 						<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
 					</div>
 					<a class="goLogin" @click="mustLogin">立即登录</a>
 					<p>登录以后显示您的游戏内容</p>
 				</div>
-				<div  class="centerTopL">
+				<div v-if="isLogin" class="centerTopL">
 					<div class="userInfo">
 						<div class="userInfoImg">
 							<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
 						</div>
 						<div class="userInfoName">
-							<div class="name">游戏名称最多4</div>
-							<div class="logout">退出</div>
+							<div class="name">天使之翼</div>
+							<div class="logout btn" @click="loginOut">退出</div>
 						</div>
 					</div>
 						<div class="myGameList">
@@ -48,17 +48,15 @@
 							<a :href="item.url">
 								<img :src="item.poster" @click="getGameYY(item.gameElement.id)" alt=""/>
 							</a>
-
 							<div class="itemStart">
 								<span class="gameIn"></span>
 								<a  @click="getGameYY(item.gameElement.id)">进入游戏</a>
 								<span class="gameC"></span>
-								<a @click="goDetails(item.gameElement.id)">选服</a>
+								<a @click="goDetails(item.gameElement.id,item.poster)">选服</a>
 							</div>
 						</div>
 						<div class="itemName">{{item.name}}</div>
 					</div>
-
 				</div>
 				</div>
 			</div>

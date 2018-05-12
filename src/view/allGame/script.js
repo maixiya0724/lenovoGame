@@ -1,6 +1,5 @@
 import SearchTop from "../../components/searchTop.vue";
 import SearchTitle from "../../components/searchTitle.vue";
-import page from "../../components/page.vue";
 import slider from "../../components/sliders.vue";
 import getGame from '@/api/getSearch'
 import getMore from '@/api/more'
@@ -10,7 +9,6 @@ import { jsCallNative } from "../../common/callnative"
 export default {
     components: {
         SearchTop: SearchTop,
-        page: page,
         slider: slider
     },
     data() {
@@ -33,18 +31,22 @@ export default {
             showItem: 5,
             allpage: "",
             flag: true,
-            token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9REQ0RDkwQTBCRUMzQzk4NUJENDI5NjU5M0FBREY3NTExJmg9MTUyNjAyMDMyNTUwMSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26-Kfd85C9BOZ0SpNjrq4My",
+            token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QjlGM0U3MjBEQzUwQ0EzMTYxODI2QTZFQUFBRERFMDQxJmg9MTUyNjExNzMxNTIxNyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25K8md_EfL3aKMEr_Crk5I4",
+            //token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9REQ0RDkwQTBCRUMzQzk4NUJENDI5NjU5M0FBREY3NTExJmg9MTUyNjAyMDMyNTUwMSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26-Kfd85C9BOZ0SpNjrq4My",
             //进入游戏接口
             gameurl: this.gmConf.domainHttps + "passport.4366.com",
             softid: "",
             gameArr: [], // 二级数组用来存放分页的数据
             dataArr: [],
             gotoInput:1,
+            noPage:true,
         }
     },
     mounted() {
         this.getGameLists()
         this.getGameTitle()
+        this.getLoginToken()
+        
     },
 
     computed: {
@@ -78,6 +80,35 @@ export default {
     },
 
     methods: {
+        //获取token
+
+        getLoginToken() {
+            var ts = this;
+            //回调请求token接口
+            //if(!ts.isLenovo()){ return false;}
+            window.tokenCallback = function(options) {
+                if (!options) { return false; }
+                var data = JSON.parse(options);
+                if ($.trim(data.token) == "") { return false; }
+                // ts.loginToken = data.token;
+                ts.userId = data.userid;
+                ts.token = data.token;
+                console.log(data)
+                // ts.errorShow(data);
+            }
+            
+            if (!ts.isIe()) {
+                if (!this.isLenovo()) { return; }
+                callHostFunction.getYYPermission(tokenCallback);
+            } else {
+                if (!this.isLenovo()) { return; }
+                let _data = window.external.getYYPermissionIe();
+                var data = JSON.parse(_data);
+                ts.userId = data.userid;
+                ts.token = data.token;
+                //ts.errorShow(data);
+            }
+        },
         //获得轮播图
         getGameLists() {
             getAwardDetail.getAwardDetail(98).then((res) => {
@@ -120,17 +151,21 @@ export default {
         },
 
         async getGame() {
-
             getGame.getSearch('', this.category1, this.category2).then((res) => {
                 console.log(res.data.datas)
                 if (res.data.datas.length === 0) {
                     console.log(1)
                     this.flag = false;
+                    this.noPage=false;
                     this.allpage = 0;
                 } else {
                     this.flag = true;
+                    this.noPage=true;
                     this.dataArr =( res.data.datas)
                     this.allpage = Math.ceil(res.data.datas.length / 16)
+                    if(this.allpage<=1){
+                        this.noPage=false;
+                    }
                     // 处理数据
                     for (let j = 0; j < this.dataArr.length; j++) {
                         if (!this.dataArr[j].captureFiles) {
@@ -156,13 +191,13 @@ export default {
                     }
 
                     this.listGame = this.dataArr.slice(0, 16); // 初始化数据
-
+                    console.log(this.listGame)
 
                 }
             })
         },
         goDetails(Id, img) { // 选择服务器
-            this.$router.push({ path: "../service", query: { gameId: Id, imgUrl: img } })
+            this.$router.push({ path:"../service", query: { gameId: Id, imgUrl:img} })
         },
         //分页
         goto: function(index) {

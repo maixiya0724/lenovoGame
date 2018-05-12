@@ -6,7 +6,7 @@
 
 <template>
 	<div class="searchGameTop">
-		<div class="topLeft">联想游戏中心/找游戏</div>
+		<div class="topLeft"> <a href="./#/allGame">联想游戏中心</a> / <a href=" ./#/search">找游戏</a></div>
 		<div class="topRight">
 			<div class="formInput">
 				<span @click="search(searchInput)" ></span>
@@ -24,6 +24,10 @@
 	.px2rem(width,1200);
 	.px2rem(height,117);
 	.topLeft{
+		a{
+			color:#fff;
+            text-decoration: none;
+		}
 		float: left;
 		.px2rem(line-height,117);
 		.px2rem(font-size,24);
@@ -65,7 +69,6 @@
 		}
 
 	}
-
 }
 </style>
 <script type="text/javascript">

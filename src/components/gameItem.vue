@@ -145,9 +145,35 @@ a:hover, a:focus {
             this.$router.push({name: 'gamedetail', query: {name:name,channelId:channelId,id: id,pageId:'101'}});
         },
         mounted(){
-
+            this.getLoginToken()
         },
+         getLoginToken() {
+            var ts = this;
+            //回调请求token接口
+            //if(!ts.isLenovo()){ return false;}
+            window.tokenCallback = function(options) {
+                if (!options) { return false; }
+                var data = JSON.parse(options);
+                if ($.trim(data.token) == "") { return false; }
+                // ts.loginToken = data.token;
+                ts.userId = data.userid;
+                ts.token = data.token;
+                console.log(data)
+                // ts.errorShow(data);
+            }
 
+            if (!ts.isIe()) {
+                if (!this.isLenovo()) { return; }
+                callHostFunction.getYYPermission(tokenCallback);
+            } else {
+                if (!this.isLenovo()) { return; }
+                let _data = window.external.getYYPermissionIe();
+                var data = JSON.parse(_data);
+                ts.userId = data.userid;
+                ts.token = data.token;
+                //ts.errorShow(data);
+            }
+        },
       //获取YYgame
         getGame(gameId,callback){
             var ts=this

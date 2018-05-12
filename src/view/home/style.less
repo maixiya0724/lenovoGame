@@ -316,12 +316,14 @@ body {
                         .px2rem(margin-right,
                         20);
                     }
-                    .gameItem:hover .itemImg .gameIn{
+                    .gameItem .itemImg .gameInC:hover .gameIn{
                         background: url("../../../static/img/hover.png");
                         background-size: 100% 100%;
                     }
-
-
+                    .gameItem:hover .itemImg .gameCC:hover .gameC{
+                        background: url("../../../static/img/dataF.png");
+                        background-size: 100% 100%;
+                    }
                     .itemImg {
                         width: 100%;
                         position: relative;
@@ -403,7 +405,7 @@ body {
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         text-align: left;
-                        background: rgba(55, 48, 138, 0.35);
+                        background: rgba(0,0,0, 0.35);
                     }
                 }
             }
@@ -638,18 +640,124 @@ body {
                 .px2rem(width,
                 890);
                 .px2rem(height,
-                285);
+                220);
                 .px2rem(margin-top,
                 5);
                 overflow: hidden;
                 .imgOver {
                     .px2rem(height,
-                    285);
+                    250);
                     .px2rem(width,
                     960);
                     position: relative;
                     .px2rem(left,
                     -20);
+                    .gameItem {
+                        .px2rem(width,
+                        280);
+                        .px2rem(height,
+                        195);
+                        float: left;
+                        .px2rem(margin-top,
+                        20);
+                        .px2rem(margin-left,
+                        13);
+                        .px2rem(margin-right,
+                        13);
+                        background:rgba(0,0,0,0.2);
+                    }
+                    .gameItem .itemImg .gameInC:hover .gameIn{
+                        background: url("../../../static/img/hover.png");
+                        background-size: 100% 100%;
+                    }
+                    .gameItem:hover .itemImg .gameCC:hover .gameC{
+                        background: url("../../../static/img/dataF.png");
+                        background-size: 100% 100%;
+                    }
+
+
+                    .itemImg {
+                        width: 100%;
+                        position: relative;
+                        .px2rem(height,
+                        157);
+                        img {
+                            width: 100%;
+                            .px2rem(height,
+                            157);
+                        }
+                        .itemStart {
+                            width: 100%;
+                            .px2rem(height,
+                            26);
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            background: rgba(38, 31, 100, 0.35);
+                            text-align: center;
+                            .px2rem(line-height,
+                            26);
+                            color: #fff;
+                            span,
+                            a {
+                                display: inline-block;
+                                .px2rem(font-size,
+                                16);
+                                float: left;
+                            }
+                            
+
+                            .gameIn {
+
+                                .px2rem(width,
+                                15);
+                                .px2rem(height,
+                                15);
+                                .px2rem(margin-top,
+                                6);
+                                .px2rem(margin-left,
+                                15);
+                                .px2rem(margin-right,
+                                10);
+                                background: url("../../../static/img/icon_gameIn.png");
+                                background-size: 100% 100%;
+                            }
+                            .gameC {
+                                .px2rem(width,
+                                15);
+                                .px2rem(height,
+                                15);
+                                .px2rem(margin-top,
+                                6);
+                                .px2rem(margin-left,
+                                15);
+                                .px2rem(margin-right,
+                                10);
+                                background: url("../../../static/img/icon_gameC.png");
+                                background-size: 100% 100%;
+                                .px2rem(margin-left,
+                                90);
+                            }
+                        }
+                    }
+                    .itemName {
+                        .px2rem(width,
+                        280);
+                        .px2rem(height,
+                        38);
+                        .px2rem(font-size,
+                        16);
+                        .px2rem(line-height,
+                        38);
+                        .px2rem(text-indent,
+                        20);
+                        color: #fff;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        text-align: left;
+                        background: rgba(0, 0, 0, 0.35);
+                    } 
                     .imgListItem {
                         display: block;
                         float: left;
@@ -782,6 +890,35 @@ body {
                                 white-space: nowrap;
                             }
                         }
+                    }
+                    .noGame{
+                        width: 100%;
+                        .px2rem(height,300);
+                        background: rgba(0,0,0,0.2);
+                        .px2rem(margin-top,20);
+                        position: relative;
+                        overflow: hidden;
+                        .main{
+                            
+                            .px2rem(width,180);
+                            height:250;
+                            margin:0 auto;
+                            .px2rem(margin-top,50);
+                            .img{
+                                width: 100%;
+                                .px2rem(height,126);
+                                background: url("../../../static/img/noGameSize.png");
+                                background-size: 100% 100%;
+                            }
+
+
+                        }
+                        p{
+                                .px2rem(width,900);
+                                .px2rem(margin-top,30);
+                                text-align: center;
+                                color: #fff;
+                            }
                     }
                 }
             }

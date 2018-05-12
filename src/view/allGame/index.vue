@@ -22,17 +22,22 @@
                             <div class="itemImg">
                                 <a   @click="getGameYY(item.id)"><img v-bind:src="item.bgUrl" alt=""/></a>
                                 <div class="itemStart">
-                                    <span class="gameIn"></span>
-                                    <a @click="getGameYY(item.id)">进入游戏</a>
-                                    <span class="gameC"></span>
-                                    <a @click="goDetails(item.id,item.serviceImg)">选服</a>
+                                    <div class="gameInC">
+                                        <span class="gameIn"></span>
+                                        <a @click="getGameYY(item.id)">进入游戏</a>
+                                    </div>
+                                    <div class="gameCC">
+                                        <span class="gameC"></span>
+                                        <a @click="goDetails(item.id,item.serviceImg)">选服</a>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="itemName">{{item.gameName}}</div>
                         </div>  
 				</div>
 			</div>
-            <div class="allGamePage"  v-if="flag">
+            <div class="allGamePage"  v-if="noPage">
                     <div id="page">
                         <ul class="pagination">
                             <li v-show="current != 1" @click="current-- && goto(current--)" ><a class="next">上一页</a></li>
@@ -41,7 +46,7 @@
                             </li>
                             <li  v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a class="next" href="#" >下一页</a></li>
                             <span class="allPage">共{{pages.length}}页</span>
-                            <div class="jumpPage"><span>到第</span><input class="pageNum"  v-model="gotoInput"  /> <label>页</label> <input type="button"  @click="goto(gotoInput)" class="btnPage" value="确定"/></div>
+                            <span class="jump">到第</span><input class="pageNum"  v-model="gotoInput"  /> <label>页</label> <input type="button"  @click="goto(gotoInput)" class="btnPage" value="确定"/>
                         </ul>
                     </div>
             </div>

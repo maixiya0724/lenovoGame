@@ -42,12 +42,21 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/back': {
-                // target: "https://gamecent-dev.vgs.lenovo.com.cn", //测试地址
+                 //target: "https://gamecent-dev.vgs.lenovo.com.cn", //测试地址
                 target: "https://gamecent.vgs.lenovo.com.cn", //正式地址
-                // target: 'http://39.106.37.236:8180/',
+                 //target: 'http://39.106.37.236:8180/',
                 // pathRewrite: {
                 //     '^/cms': ''
                 // },
+                changeOrigin: true
+            },
+            '/token': {
+                 target: "https://privilege.lenovo.com.cn/v3/", //测试地址
+                //target: "https://gamecent.vgs.lenovo.com.cn", //正式地址
+                // target: 'http://39.106.37.236:8180/',
+                pathRewrite: {
+                     '/token': ''
+                },
                 changeOrigin: true
             },
         },

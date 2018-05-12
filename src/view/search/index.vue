@@ -13,7 +13,11 @@
 								<p class="name">{{item.gameName}}</p>
 								<p class="info">{{item.detailInfo}}</p>
 							</div>
-							<a class="gameStart" href=""  target="_blank">开始游戏</a>
+
+							<!-- item.category1,item.elementName,item.gameElement.id,item.gameElement.downLoadUrl,item.gameElement.icon,item.gameElement.packageName,item.gameElement.gameUrl -->
+
+
+							<a class="gameStart" @click="startGame(item.id)"   target="_blank">开始游戏</a>
 						</div>
 						<div class="gameScImg">
 							<SearchTitle text="游戏截图" imgUrl="../../../static/img/search_sc.png"></SearchTitle>

@@ -36,12 +36,13 @@
 		data(){
 			return{
 					gameurl:this.gmConf.domainHttps+"passport.4366.com",
-                token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9MjlEQkM0OTg1NkFGMDFBRkY4MEIwMTQ4QUZDRkY2QkUxJmg9MTUyNTkyNDM5MjQyMyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y27exiyuXbDV0p1dSDLy-jx6",
+                token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9MTY4QUREMzIyMjUwMkEyQzBCRjVDRUIzRDQ0NEIyQzMxJmg9MTUyNjEwNzM2OTA0OCZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25jStfP5s0L5O2aV5gFX27D",
 			}
 		},
 		
 		mounted(){
 			this.sliderInit()
+			this.getLoginToken()
 			
 		},
 		
@@ -53,6 +54,33 @@
 				  
 				})
 			},
+			getLoginToken() {
+	            var ts = this;
+	            //回调请求token接口
+	            //if(!ts.isLenovo()){ return false;}
+	            window.tokenCallback = function(options) {
+	                if (!options) { return false; }
+	                var data = JSON.parse(options);
+	                if ($.trim(data.token) == "") { return false; }
+	                // ts.loginToken = data.token;
+	                ts.userId = data.userid;
+	                ts.token = data.token;
+	                console.log(data)
+	                // ts.errorShow(data);
+	            }
+
+	            if (!ts.isIe()) {
+	                if (!this.isLenovo()) { return; }
+	                callHostFunction.getYYPermission(tokenCallback);
+	            } else {
+	                if (!this.isLenovo()) { return; }
+	                let _data = window.external.getYYPermissionIe();
+	                var data = JSON.parse(_data);
+	                ts.userId = data.userid;
+	                ts.token = data.token;
+	                //ts.errorShow(data);
+	            }
+	        },
 			getGameYY(gameId,clk){
 	            var ts=this
 				console.log(this.sliderList)
@@ -79,7 +107,7 @@
 		            console.log(_url,_sid);
 		           
 		            
-		            //window.location.href = _url;
+		            window.open(_url)
 		        },
 		}
 	}

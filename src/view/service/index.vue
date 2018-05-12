@@ -15,7 +15,7 @@
 					<div class="dataSev">
 						<p class="title">推荐服务器</p>
 						<div class="sevList">
-							<a class="sevListItem " @click="gameStart(item.payServerId)"  v-for="(item,index) in latest.servers">{{item.name}}</a>
+							<a class="sevListItem " @click="gameStart(item.id)"  v-for="(item,index) in latest.servers">{{item.name}}</a>
 						</div>
 						<p class="title">选择服务器</p>
 						<div class="chooseSev">
@@ -26,9 +26,11 @@
 						</div>
 						<div class="changeSev">
 								<div class="changeData">
-									<a v-for="(item,index) in allServices.servers"  @click="gameStart(item.payServerId)">{{item.name}}</a>
+									<a v-for="(item,index) in allServices.servers"  @click="gameStart(item.id)">{{item.name}}</a>
 								</div>
+									<p class="loading">{{loadingText}}</p>
 							</div>
+
 					</div>
 				</div>
 			</div>

@@ -7,7 +7,7 @@
 				<div class="centerTop">
 					<div v-if="!isLogin"  class="centerTopL">
 					<div class="userTitle">
-						<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
+						<img :src="user.headimgurl" alt="">
 					</div>
 					<a class="goLogin" @click="mustLogin">立即登录</a>
 					<p>登录以后显示您的游戏内容</p>
@@ -15,10 +15,10 @@
 				<div v-if="isLogin" class="centerTopL">
 					<div class="userInfo">
 						<div class="userInfoImg">
-							<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149816710,2448729299&fm=27&gp=0.jpg" alt="">
+							<img :src="user.headimgurl" alt="">
 						</div>
 						<div class="userInfoName">
-							<div class="name">天使之翼</div>
+							<div class="name">{{user.nickname}}</div>
 							<div class="logout btn" @click="loginOut">退出</div>
 						</div>
 					</div>
@@ -43,19 +43,23 @@
 				<a class="moreGame" @click="moreGame">更多</a>
 				<div class="gameList">
 					<div class="gameListMain">
-					<div v-for="(item,index) in hotGame" class="gameItem">
+					<div v-for="(item,index) in goodGame" class="gameItem">
 						<div class="itemImg">
 							<a :href="item.url">
 								<img :src="item.poster" @click="getGameYY(item.gameElement.id)" alt=""/>
 							</a>
 							<div class="itemStart">
-								<span class="gameIn"></span>
-								<a  @click="getGameYY(item.gameElement.id)">进入游戏</a>
-								<span class="gameC"></span>
-								<a @click="goDetails(item.gameElement.id,item.poster)">选服</a>
+								<div class="gameInC">
+									<span class="gameIn"></span>
+									<a class="gameIna" @click="getGameYY(item.gameElement.id)">进入游戏</a>
+								</div>
+								<div class="gameCC">
+									<span class="gameC"></span>
+									<a class="gameCa" @click="goDetails(item.gameElement.id,item.poster)">选服</a>
+								</div>
 							</div>
 						</div>
-						<div class="itemName">{{item.name}}</div>
+						<div class="itemName">{{item.elementName}}</div>
 					</div>
 				</div>
 				</div>
@@ -76,7 +80,6 @@
 									<!-- 轮播图 -->
 									<div  class="slider">
 										<!-- 注意这里ID是要保持唯一性 -->
-
 								  			 <div id="myCarousel2" class="carousel slide">
 	      										  <ol class="carousel-indicators">
 	      										    <li data-target="#myCarousel2" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
@@ -111,12 +114,28 @@
 					<div class="dataListR">
 						<a class="moreGame" @click="moreGame">更多</a>
 							<SearchTitle text="热门游戏" imgUrl="../../../static/img/hot.png"></SearchTitle>
-
+							
 							<div class="imgList">
 								<div class="imgOver">
-									<a class="imgListItem" @click="getGameYY(item.gameElement.id)"  href="#" v-for="(item,index) in goodGame">
-										<img :src="item.poster" alt="游戏图片"/>
-									</a>
+										<div v-for="(item,index) in hotGame" class="gameItem">
+											<div class="itemImg">
+												<a :href="item.url">
+													<img :src="item.poster" @click="getGameYY(item.gameElement.id)" alt=""/>
+												</a>
+												<div class="itemStart">
+													<div class="gameInC">
+														<span class="gameIn"></span>
+														<a class="gameIna" @click="getGameYY(item.gameElement.id)">进入游戏</a>
+													</div>
+													<div class="gameCC">
+														<span class="gameC"></span>
+														<a class="gameCa" @click="goDetails(item.gameElement.id,item.poster)">选服</a>
+													</div>
+												</div>
+											</div>
+											<div class="itemName">{{item.elementName}}</div>
+										</div>
+
 								</div>
 							</div>
 							<div class="allGame">
@@ -125,7 +144,7 @@
 									<a  @click="selectIndex(index,item)" :class="index===0?'active':''" v-for="(item,index) in gameCategory2" >{{item.cateName}}</a>
 								</div>
 								<div class="gameIconList">
-									<div class="gameIconMove">
+									<div v-if='!iconGame' class="gameIconMove">
 										<div class="gameIconItem" v-for="(item,index) in listGame">
 											<div class="iconImg">
 												<a>
@@ -134,16 +153,26 @@
 												</a>
 											</div>
 											<p>{{item.gameName}}</p>
-										</div>
-																				
+										</div>								
 									</div>
+
+									<div v-if='iconGame' class="noGame">
+										<div class="main">
+											<div class="img"></div>
+										</div>
+											<p>非常抱歉，没有找到您想要的内容</p>
+										
+												
+									</div>	
+
 								</div>
+								
 
 							</div>
 					</div>
 			</div>
 
-				<page></page>
+				
 			
 		</div>
 	</div>

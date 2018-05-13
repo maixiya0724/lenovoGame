@@ -5,7 +5,6 @@ import getAwardDetail from '@/api/award/award-add';
 import axios from 'axios';
 
 
-
 export default {
     components: {
         SearchTop: SearchTop,
@@ -33,7 +32,7 @@ export default {
             //下拉加载
             fst: false,
             loading: false,
-            loadingText: '已无更多数据',
+            loadingText: '加载中...',
             //分页参数
             gsPageNo: 1,
             latest: {
@@ -52,14 +51,8 @@ export default {
             //区服号
             serverNumber: [],
             //未获取到数据时加载文字
-            loadingTexts: '已无更多数据',
             softBrowser: 'chrome', //浏览器类型
-            /*scrollTop:"",
-            scrollHeight:"",
-            windowHeight:"",*/
-           
-
-
+        
            
         }
     },
@@ -73,18 +66,16 @@ export default {
         //获取YY签名以及时间戳
         this.getSign(this.userId);
         console.log(this.imgUrl)
-        this.winSrcoll()
 
-      /*  this.scrollTop=$(this).scrollTop(),//滑动的距离
-        this.scrollHeight=$(document).height(), //文本的高度
-        this.windowHeight=$(this).height() //可视窗口的高度
-        this.result=this.scrollHeight-this.windowHeight-this.scrollTop*/
-
+      this.winSrcoll()
+    
+       
     },
+  
     
 
-
     methods: {
+       
        getLoginToken() {
             var ts = this;
             //回调请求token接口
@@ -124,34 +115,41 @@ export default {
                 ts.softid=res.data.softId;//game值
                 ts.getAllServer(ts.softid,ts.gsPageNo);//获取所有区服
                  ts.getNewInfo(ts.softid)
+
             });
         },
         winSrcoll() {
-             console.log(1)
+
             var ts = this;
             $(window).scroll(function() {
-                console.log(1)
-                if (ts.fst) {
-                    var scrollTop = $(this).scrollTop() //滑动的距离
-                    var scrollHeight = $(document).height() //文本的高度
-                    var windowHeight = $(this).height() //可视窗口的高度
-                    if (scrollHeight - windowHeight - scrollTop <= 50 && !ts.loading) {
-                        ts.getSecond(ts.softid, ts.gsPageNo);
+                //节流事件
+                
+                var timeOut = setTimeout(function(){
+                    if (ts.fst) {
+                        var scrollTop = $(this).scrollTop() //滑动的距离
+                        var scrollHeight = $(document).height() //文本的高度
+                        var windowHeight = $(this).height() //可视窗口的高度
+                        if (scrollHeight - windowHeight - scrollTop <= 10 && !ts.loading) {
+                            console.log("到底了")
+                            ts.getSecond(ts.softid, ts.gsPageNo);
+                        }
                     }
-                }
+                },100)
+                
             });
         },
         getSecond(game, gsPageNo) {
+
             var ts = this;
             var gsPageNo = gsPageNo ? gsPageNo : "1";
             ts.loading = true;
-            var url = this.gmConf.domainHttps + "gameapi.37.com/index.php?c=lenovo-server&a=slist&game=" + game + "&gsPageNo=" + gsPageNo;
+             var url= this.gmConf.domainHttps+"unionlogin.4366.com/lenovo/gamecenter/gslist.do?jsonp&serverType=GENERAL&gsPageSize=60&online"+"&game="+game+"&gsPageNo="+gsPageNo;
             console.log(url)
-            this.jqajax(url, {}, (res) => {
-                console.log("getSecond")
+            this.jqajax(url, {type:"post",dataType:"jsonp"}, (res) => {
                 console.log(res)
                 ts.loading = false;
-                var _servers = res.data.list;
+                var _servers = res[game].servers;
+                console.log(_servers)
                 if (JSON.stringify(_servers) == "{}") {
                     ts.loadingText = '已无更多区服';
                     ts.fst = false;
@@ -233,16 +231,14 @@ export default {
              ts.loading=true;
              var url= this.gmConf.domainHttps+"unionlogin.4366.com/lenovo/gamecenter/gslist.do?jsonp&serverType=GENERAL&gsPageSize=60&online"+"&game="+game+"&gsPageNo="+gsPageNo;
              this.jqajax(url,{},(res)=>{
-                 this.fst=true;
+                 ts.fst=true;
                  ts.loading=false;
                  var _servers = res[ts.softid].servers;
                  console.log('所有',_servers,ts.softid);
                  for(var item in _servers){
                      ts.allServices.servers.push(_servers[item]);
                  }
-                 if(ts.allServices.servers.length<60){
-                     ts.loadingText='已无更多区服信息'
-                 }
+                 
                  console.log('循环之后的结果数组',ts.allServices.servers)
                  console.log('长度', ts.allServices.servers.length)
                  ts.gsPageNo++;
@@ -313,8 +309,6 @@ export default {
                     ts.playLatests = res.data.slice(0,3);
 
                 }
-                
-
             })
         },
 

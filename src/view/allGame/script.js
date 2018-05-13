@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             gameType: [],
-            banners: [],
+            banners: [{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"}],
             list: [],
             page: 1,
             listGame: [],
@@ -31,22 +31,22 @@ export default {
             showItem: 5,
             allpage: "",
             flag: true,
-            token:"ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QjlGM0U3MjBEQzUwQ0EzMTYxODI2QTZFQUFBRERFMDQxJmg9MTUyNjExNzMxNTIxNyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25K8md_EfL3aKMEr_Crk5I4",
+            token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QjlGM0U3MjBEQzUwQ0EzMTYxODI2QTZFQUFBRERFMDQxJmg9MTUyNjExNzMxNTIxNyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25K8md_EfL3aKMEr_Crk5I4",
             //token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9REQ0RDkwQTBCRUMzQzk4NUJENDI5NjU5M0FBREY3NTExJmg9MTUyNjAyMDMyNTUwMSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26-Kfd85C9BOZ0SpNjrq4My",
             //进入游戏接口
             gameurl: this.gmConf.domainHttps + "passport.4366.com",
             softid: "",
             gameArr: [], // 二级数组用来存放分页的数据
             dataArr: [],
-            gotoInput:1,
-            noPage:true,
+            gotoInput: 1,
+            noPage: true,
         }
     },
     mounted() {
         this.getGameLists()
         this.getGameTitle()
         this.getLoginToken()
-        
+
     },
 
     computed: {
@@ -96,7 +96,7 @@ export default {
                 console.log(data)
                 // ts.errorShow(data);
             }
-            
+
             if (!ts.isIe()) {
                 if (!this.isLenovo()) { return; }
                 callHostFunction.getYYPermission(tokenCallback);
@@ -140,78 +140,110 @@ export default {
         },
 
         // 点击游戏列表分类
-        selectIndex(index, item) {
+        selectIndex(index, item, event) {
+
+            let value = event.target.text
             $(".gameTitle a").removeClass("active")
             $(event.target).addClass("active")
             this.subCategoryIndex = index;
             this.category2 = item.category1;
             this.current = 1;
             this.page = 1;
-            this.getGame();
+            console.log(this.dataArr)
+            let arr = []
+            console.log(value)
+            if (value =="全部") {
+                arr =this.dataArr
+                
+            } else {
+                for (var i in this.dataArr) {
+                    if (this.dataArr[i].category2 == value) {
+                        arr.push(this.dataArr[i])
+                    }
+
+                }
+            }
+
+            console.log(arr)
+
+            if (JSON.stringify(arr) === '[]') {
+                this.flag = false;
+                this.noPage = false;
+            } else {
+                this.flag = true;
+                this.noPage = true;
+                this.handleData(arr)
+            }
+
+        },
+        handleData(data) {
+
+            this.allpage = Math.ceil(data.length / 16)
+            if (this.allpage <= 1) {
+                this.noPage = false;
+            }
+
+            // 处理数据
+            for (let j = 0; j < data.length; j++) {
+                if (!data[j].captureFiles) {
+                    data[j].bgUrl = ''
+                } else {
+                    for (let i = 0; i < data[j].captureFiles.length; i++) {
+                        if (data[j].captureFiles[i].size == '235*132') {
+                            data[j].bgUrl = data[j].captureFiles[i].url
+
+                        }
+                        // 获取游戏服务页面的图片
+                        if (data[j].captureFiles[i].size == '235*132') {
+                            data[j].serviceImg = data[j].captureFiles[i].url
+                        }
+                    }
+                }
+            }
+            // 创建一个二维数组来放分组的数据
+            for (var i = 0; i < this.allpage; i++) {
+                let arr = []
+                arr.push(data.slice(i * 16, (i + 1) * 16))
+                this.gameArr[i] = arr
+            }
+            this.listGame = data.slice(0, 16); // 初始化数据
+
+
         },
 
         async getGame() {
             getGame.getSearch('', this.category1, this.category2).then((res) => {
                 console.log(res.data.datas)
-                if (res.data.datas.length === 0) {
+                if (JSON.stringify(res.data.datas) === '[]') {
                     console.log(1)
                     this.flag = false;
-                    this.noPage=false;
+                    this.noPage = false;
                     this.allpage = 0;
                 } else {
                     this.flag = true;
-                    this.noPage=true;
-                    this.dataArr =( res.data.datas)
-                    this.allpage = Math.ceil(res.data.datas.length / 16)
-                    if(this.allpage<=1){
-                        this.noPage=false;
-                    }
-                    // 处理数据
-                    for (let j = 0; j < this.dataArr.length; j++) {
-                        if (!this.dataArr[j].captureFiles) {
-                            this.dataArr[j].bgUrl = ''
-                        } else {
-                            for (let i = 0; i < this.dataArr[j].captureFiles.length; i++) {
-                                if (this.dataArr[j].captureFiles[i].size == '235*132') {
-                                    this.dataArr[j].bgUrl = this.dataArr[j].captureFiles[i].url
-
-                                }
-                                // 获取游戏服务页面的图片
-                                if (this.dataArr[j].captureFiles[i].size == '235*132') {
-                                    this.dataArr[j].serviceImg = this.dataArr[j].captureFiles[i].url
-                                }
-                            }
-                        }
-                    }
-                    // 创建一个二维数组来放分组的数据
-                    for (var i = 0; i < this.allpage; i++) {
-                        let arr = []
-                        arr.push(this.dataArr.slice(i * 16, (i + 1) * 16))
-                        this.gameArr[i] = arr
-                    }
-
-                    this.listGame = this.dataArr.slice(0, 16); // 初始化数据
-                    console.log(this.listGame)
+                    this.noPage = true;
+                    this.dataArr = res.data.datas
+                    this.handleData(this.dataArr)
 
                 }
             })
         },
         goDetails(Id, img) { // 选择服务器
-            this.$router.push({ path:"../service", query: { gameId: Id, imgUrl:img} })
+            this.$router.push({ path: "../service", query: { gameId: Id, imgUrl: img } })
         },
         //分页
         goto: function(index) {
-            index=parseInt(index)
+            index = parseInt(index)
             if (index == this.current) { // 点击当前页
                 return false
             }
-            if (typeof index === 'number'  && index <= this.gameArr.length) {
+            if (typeof index === 'number' && index <= this.gameArr.length) {
                 this.current = index;
                 this.listGame = this.gameArr[index - 1][0]
                 console.log(this.listGame)
             } else {
-               alert("请输入正确的数字")
-               this.gotoInput=1;
+                alert("请输入正确的数字")
+                this.gotoInput = 1;
             }
         },
         pages: function() {

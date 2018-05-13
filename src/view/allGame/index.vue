@@ -6,13 +6,13 @@
 				<slider  v-bind:sliderList="banners"></slider>
 			</div>
 			<div class="gameTitle">
-				<a :class="index===0?'active':'' "  @click="selectIndex(index,item)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
+				<a :class="index===0?'active':'' "  @click="selectIndex(index,item,$event)" v-for="(item,index) in gameCategory2">{{item.cateName}}</a>
 			</div>
 			<div class="allGameList clear">
                 <div v-if="!flag" class="searchNoGame">
                     <div class="noGame">
                         <div class="noGameImg"></div>
-                        <p>"非常抱歉，没有找到您想要的内容"</p>
+                        <p>非常抱歉，没有找到您想要的内容</p>
                     </div>
                 </div>
 

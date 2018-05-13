@@ -22,7 +22,7 @@ export default {
             goodGameRank: [],
             listGame: [],
             hotGame: [],
-            banners: [{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"}],
+            banners: [{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"}],
             userId: '10114895506',
             //YY签名以及时间戳
             signs: '',
@@ -139,7 +139,6 @@ export default {
                 console.log(this.goodGame)
                 //  页游精品游戏开服表
                 this.goodGameRank = res.data.channels[0].modules[3].elements;
-                console.log(this.goodGameRank)
                 var goodGameRankList = Math.ceil(this.goodGameRank.length / 10)
                 //处理goodGameRankList
                 for (var i = 0; i < goodGameRankList; i++) {

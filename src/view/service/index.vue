@@ -1,10 +1,10 @@
 
 <template>
-	<div class="searchLogin">
+	<div class="searchLogin" @scroll.native="winSrcoll">
 		<div class="searchLoginMain">
 			
 			<SearchTop></SearchTop>
-			<div class="SlCenter">
+			<div class="SlCenter clearfix">
 				<img class="SlCenterL" :src="imgUrl"/>
 				<div class="SlCenterR">
 					<SearchTitle text="用户信息" imgUrl="../../../static/img/search_user.png"></SearchTitle>
@@ -18,17 +18,18 @@
 							<a class="sevListItem " @click="gameStart(item.id)"  v-for="(item,index) in latest.servers">{{item.name}}</a>
 						</div>
 						<p class="title">选择服务器</p>
-						<div class="chooseSev">
+						<div class="chooseSev ">
 							<div class="changeData"><span>输入服务器</span>
 								<input ref="inputData" if="inputData" class="selectData" type="text"/>
 							</div>
 							<button class="btn" @click="enterGame">进入游戏</button>
 						</div>
-						<div class="changeSev">
+						<div class="changeSev clearfix" @scroll.native="scrollHandler">
 								<div class="changeData">
 									<a v-for="(item,index) in allServices.servers"  @click="gameStart(item.id)">{{item.name}}</a>
 								</div>
-									<p class="loading">{{loadingText}}</p>
+							<p class="loading">{{loadingText}}</p>
+									
 							</div>
 
 					</div>

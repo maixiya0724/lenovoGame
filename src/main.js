@@ -92,11 +92,11 @@ Vue.prototype.gmConf = {
     domainHttp:"http://",
     domainHttps:"https://"
 };
-
-import MuseUI from 'muse-ui'
+//样式冲突 删除MuseUI
+/*import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 
-Vue.use(MuseUI);
+Vue.use(MuseUI);*/
 
 /* eslint-disable no-new */
 console.log('============================================');

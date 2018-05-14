@@ -19,7 +19,7 @@ export default {
             gameId:this.$route.query.gameId,
             imgUrl:this.$route.query.imgUrl,
             //获取用户信息
-            token: 'ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9REEwMTAwMDQyM0RENDhFQjc1QzVBQTAxRDczNzc3NDgxJmg9MTUyNjExNzcwMTI1MyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26NquohdhZVvmd6XbKab4pb',
+            token: 'ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9RDY2QzNCOEZFMEM5NjlGQ0E4RTJGQzAxMTJDRjc3RTMxJmg9MTUyNjI2NDcxMDk4OSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26u1DL_GLJzhuU8iy_kJxSi',
             userId: '10114895506',
             //YY签名以及时间戳
             signs: '',

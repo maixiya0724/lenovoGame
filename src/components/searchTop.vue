@@ -6,7 +6,7 @@
 
 <template>
 	<div class="searchGameTop">
-		<div class="topLeft"> <a href="./#/allGame">联想游戏中心</a> / <a href=" ./#/search">找游戏</a></div>
+		<div class="topLeft"> <a href="./#/home">联想游戏中心</a> / <a href=" ./#/allGame">找游戏</a></div>
 		<div class="topRight">
 			<div class="formInput">
 				<span @click="search(searchInput)" ></span>

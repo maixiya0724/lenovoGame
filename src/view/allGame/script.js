@@ -31,7 +31,7 @@ export default {
             showItem: 5,
             allpage: "",
             flag: true,
-            token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9QjlGM0U3MjBEQzUwQ0EzMTYxODI2QTZFQUFBRERFMDQxJmg9MTUyNjExNzMxNTIxNyZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y25K8md_EfL3aKMEr_Crk5I4",
+            token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9RDY2QzNCOEZFMEM5NjlGQ0E4RTJGQzAxMTJDRjc3RTMxJmg9MTUyNjI2NDcxMDk4OSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26u1DL_GLJzhuU8iy_kJxSi",
             //token: "ZAgAAAAAAAGE9MTAxMTQ4OTU1MDYmYj0yJmM9NCZkPTI0NTA4JmU9REQ0RDkwQTBCRUMzQzk4NUJENDI5NjU5M0FBREY3NTExJmg9MTUyNjAyMDMyNTUwMSZpPTQzMjAwJm89QVNERjEyMzQmcD1zbiZxPTAmdXNlcm5hbWU9MTgzMDEyMTUzMzcmaWw9Y26-Kfd85C9BOZ0SpNjrq4My",
             //进入游戏接口
             gameurl: this.gmConf.domainHttps + "passport.4366.com",
@@ -45,7 +45,7 @@ export default {
     mounted() {
         this.getGameLists()
         this.getGameTitle()
-        this.getLoginToken()
+        //this.getLoginToken()
 
     },
 
@@ -111,7 +111,7 @@ export default {
         },
         //获得轮播图
         getGameLists() {
-            getAwardDetail.getAwardDetail(98).then((res) => {
+            getAwardDetail.getAwardDetail(104).then((res) => {
                 console.log(res.data)
                 $(window).scrollTop(0);
                 // 轮播图
@@ -164,7 +164,6 @@ export default {
                 }
             }
 
-            console.log(arr)
 
             if (JSON.stringify(arr) === '[]') {
                 this.flag = false;

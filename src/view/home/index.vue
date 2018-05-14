@@ -80,7 +80,7 @@
 									<!-- 轮播图 -->
 									<div  class="slider">
 										<!-- 注意这里ID是要保持唯一性 -->
-								  			 <div id="myCarousel2" class="carousel slide">
+								  			 <div v-if="!noSerData"  id="myCarousel2" class="carousel slide">
 	      										  <ol class="carousel-indicators">
 	      										    <li data-target="#myCarousel2" v-for="(item,index) in sliderList" :index="index" :data-slide-to="index" class="active"></li>
 	      										  </ol>
@@ -101,7 +101,10 @@
 	      										    </div>		    
 	      										    
 	      										  </div>
+	      									
+
 	      									</div>
+	      									<p v-if="noSerData">暂无区服</p>
 								    </div> 
 									
 								</div> 
@@ -141,7 +144,7 @@
 							<div class="allGame">
 								<a class="moreGame" @click="moreGame">更多</a>
 								<div class="allGameTitle">
-									<a  @click="selectIndex(index,item)" :class="index===0?'active':''" v-for="(item,index) in gameCategory2" >{{item.cateName}}</a>
+									<a  @click="selectIndex(index,item,$event)" :class="index===0?'active':''" v-for="(item,index) in gameCategory2" >{{item.cateName}}</a>
 								</div>
 								<div class="gameIconList">
 									<div v-if='!iconGame' class="gameIconMove">
@@ -220,7 +223,9 @@
                     .active {
                         .px2rem(width, 10);
                         background: #4e92ff;
-                        .px2rem(margin-top,-10);
+                        position: relative;
+                        .px2rem(top,-2);
+                        
                     }
                 }
                 .carousel-control{ // 控制上下样式

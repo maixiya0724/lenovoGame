@@ -35,7 +35,7 @@
             24);
             position: relative;
             .px2rem(top,
-            5);
+            0);
             .px2rem(left,
             20);
             color: #fff;

@@ -3,6 +3,6 @@
  */
 export default {
     getAwardDetail(id){
-        return `/back/game/get/game/indexChannel/${id}?relativeId=47`
+        return `/back/game/get/game/indexChannel/${id}?relativeId=48`
     },
 }

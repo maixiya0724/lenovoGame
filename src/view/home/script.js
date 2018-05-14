@@ -22,7 +22,7 @@ export default {
             goodGameRank: [],
             listGame: [],
             hotGame: [],
-            banners: [{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"}],
+            banners: [{ poster: "http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg" }, { poster: "http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg" }, { poster: "http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg" }, { poster: "http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg" }],
             userId: '10114895506',
             //YY签名以及时间戳
             signs: '',
@@ -41,8 +41,10 @@ export default {
             //进入游戏接口
             gameurl: this.gmConf.domainHttps + "passport.4366.com",
             iconGame: false,
-            lenovoUrl:this.gmConf.domainHttps+"privilege.lenovo.com.cn/v3",
-            user:""
+            lenovoUrl: this.gmConf.domainHttps + "privilege.lenovo.com.cn/v3",
+            user: "",
+            allData: [], // 储存所有数据
+            noSerData: false,
         }
     },
 
@@ -82,22 +84,22 @@ export default {
                 //ts.errorShow(data);
             }
         },
-        getUserInfo(){// 通过token来获取用户的基本信息
-            var ts=this
-            let url = "/token/a/u/user/out/info/iqiyi?token="+this.token
+        getUserInfo() { // 通过token来获取用户的基本信息
+            var ts = this
+            let url = "/token/a/u/user/out/info/iqiyi?token=" + this.token
             /*this.jqajax(url,{type:"get",dataType:"json"},function(res){
                 console.log(res)
             })*/
-            axios.get(url).then(function(res){
-                    ts.user = res.data.data.user
-                    console.log(ts.user.userid)
-                    var a = Encrypt(ts.user.userid+'.').toString()
-                    console.log(a)
-                    
+            axios.get(url).then(function(res) {
+                ts.user = res.data.data.user
+                console.log(ts.user.userid)
+                var a = Encrypt(ts.user.userid + '.').toString()
+                console.log(a)
+
             })
 
         },
-        
+
 
         mustLogin: function() { // 点击开始登陆
             //window.external.LoginLenovoID();    //登录
@@ -126,29 +128,39 @@ export default {
 
         getGameLists() { // 得到banner和服务器列表轮播图的数据
             // 接口地址在serviceUrl里
-            getAwardDetail.getAwardDetail(98).then((res) => {
+            getAwardDetail.getAwardDetail(104).then((res) => {
                 $(window).scrollTop(0);
                 console.log(res.data)
                 // 轮播图
                 this.banners = res.data.channels[0].modules[1].elements;
- 
+
                 this.banners.page = res.data.channels[0].channelName;
                 this.banners.pageId = res.data.channels[0].id;
                 // 精品游戏
                 this.goodGame = res.data.channels[0].modules[2].elements.slice(0, 4);
                 console.log(this.goodGame)
+                // 热门游戏
+                this.hotGame = res.data.channels[0].modules[4].elements.slice(0, 3);
                 //  页游精品游戏开服表
                 this.goodGameRank = res.data.channels[0].modules[3].elements;
-                var goodGameRankList = Math.ceil(this.goodGameRank.length / 10)
                 //处理goodGameRankList
-                for (var i = 0; i < goodGameRankList; i++) {
-                    (this.sliderList).push(i)
+                
+                if (JSON.stringify(this.goodGameRank) === "[]") {
+                   
+                    this.noSerData = true
+                } else {
+                    this.noSerData = false
+                    var goodGameRankList = Math.ceil(this.goodGameRank.length / 10)
+                    for (var i = 0; i < goodGameRankList; i++) {
+                        (this.sliderList).push(i)
+                    }
+
                 }
 
-                this.cont = res.data.channels[0].modules[4].elements;
-                // 热门游戏
-                this.hotGame = res.data.channels[0].modules[5].elements.slice(0, 3);
+
+
                 
+
 
             })
         },
@@ -165,41 +177,66 @@ export default {
         },
 
         // 点击游戏列表分类
-        selectIndex(index, item) {
+        selectIndex(index, item, ev) {
+            let value = ev.target.text
+            console.log(value)
             $(".allGameTitle a").removeClass("active")
             $(event.target).addClass("active")
-            this.subCategoryIndex = index;
-            this.category2 = item.category1;
-            this.getGame();
+            let arr = []
+
+            if (value == "全部") {
+                arr = this.allData
+            } else {
+                for (var i in this.allData) {
+                    if (this.allData[i].category2 == value) {
+                        arr.push(this.allData[i])
+                    }
+
+                }
+            }
+
+            if (JSON.stringify(arr) === '[]') {
+                this.iconGame = true
+            } else {
+                this.iconGame = false
+                this.listGame = arr.slice(0, 12);
+                this.handleData(this.listGame);
+
+            }
+        },
+
+        handleData(data) {
+            // 遍历把235*132的图片加到游戏list里
+            for (let j = 0; j < data.length; j++) {
+                if (!data[j].captureFiles) {
+                    data[j].bgUrl = ''
+                } else {
+                    for (let i = 0; i < data[j].captureFiles.length; i++) {
+                        if (data[j].captureFiles[i].size == '235*132') {
+                            data[j].bgUrl = data[j].captureFiles[i].url
+                        }
+                        if (data[j].captureFiles[i].size == '235*132') {
+                            data[j].serviceImg = data[j].captureFiles[i].url
+
+                        }
+
+                    }
+                }
+            }
         },
 
         async getGame() {
             // console.log(this.category1,this.category2);
             getGame.getSearch('', this.category1, this.category2).then((res) => {
                 console.log(res.data.datas)
-                if (!res.data.datas.length) {
+                if (JSON.stringify(res.data.datas) === '[]') {
                     this.iconGame = true
                     console.log(this.iconGame)
                 } else {
                     this.iconGame = false
+                    this.allData = res.data.datas
                     this.listGame = res.data.datas.slice(0, 12)
-                    // 遍历把235*132的图片加到游戏list里
-                    for (let j = 0; j < this.listGame.length; j++) {
-                        if (!this.listGame[j].captureFiles) {
-                            this.listGame[j].bgUrl = ''
-                        } else {
-                            for (let i = 0; i < this.listGame[j].captureFiles.length; i++) {
-                                if (this.listGame[j].captureFiles[i].size == '235*132') {
-                                    this.listGame[j].bgUrl = this.listGame[j].captureFiles[i].url
-                                }
-                                if (this.listGame[j].captureFiles[i].size == '235*132') {
-                                    this.listGame[j].serviceImg = this.listGame[j].captureFiles[i].url
-
-                                }
-
-                            }
-                        }
-                    }
+                    this.handleData(this.listGame)
                 }
             })
         },
@@ -264,8 +301,8 @@ export default {
             var ts = this;
             if (!_sid) return false;
             var url = ts.gameurl + "/channel/lenovo/gamecenter/login.do?game=" + ts.softid + "&token=" + ts.token + "&server=" + _sid + "&failUrl=" + encodeURIComponent(window.location.href);
-           // window.open(url)
-           console.log(url)
+            // window.open(url)
+            console.log(url)
 
         },
         myStartGame: function(game, server) { // 我之前玩过的游戏快速进入游戏

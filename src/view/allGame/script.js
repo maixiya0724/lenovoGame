@@ -12,6 +12,8 @@ export default {
         slider: slider
     },
     data() {
+
+        
         return {
             gameType: [],
             banners: [{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"},{poster:"http://smtv-cms.oss-cn-beijing.aliyuncs.com/cms/2018-03-24/201803241617288423277.jpg"}],
